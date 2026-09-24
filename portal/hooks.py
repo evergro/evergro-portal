@@ -1,8 +1,8 @@
 app_name = "portal"
 app_title = "Portal"
-app_publisher = "Evergro Landscapers"
-app_description = "Evergro Customer Portal"
-app_email = "hello@landscapers.evergro.co.za"
+app_publisher = "Evergro Digital"
+app_description = "Customer and Employee portal for Evergro Landscapers"
+app_email = "hello@digital.evergro.co.za"
 app_license = "agpl-3.0"
 
 # Apps

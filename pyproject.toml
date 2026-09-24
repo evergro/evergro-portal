@@ -1,9 +1,9 @@
 [project]
 name = "portal"
 authors = [
-    { name = "Evergro Landscapers", email = "hello@landscapers.evergro.co.za"}
+    { name = "Evergro Digital", email = "hello@digital.evergro.co.za"}
 ]
-description = "Evergro Customer Portal"
+description = "Customer and Employee portal for Evergro Landscapers"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]

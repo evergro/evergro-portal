@@ -1,6 +1,6 @@
 ### Portal
 
-Evergro Customer Portal
+Customer and Employee portal for Evergro Landscapers
 
 ### Installation
 
