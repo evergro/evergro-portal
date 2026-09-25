@@ -135,7 +135,9 @@ role_home_page = {
 # DocType Class
 # ---------------
 # Override standard doctype classes
-
+fixtures = [
+    {"doctype": "Custom Field", "filters": [["dt", "=", "Contact"], ["fieldname", "=", "custom_birthday"]]}
+]
 # override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
