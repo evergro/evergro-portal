@@ -1,4 +1,19 @@
-{% extends "templates/web.html" %}
-{% block page_content %}
-<h1>Portal placeholder — logged in as {{ frappe.session.user }}</h1>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evergro Portal</title>
+{% for css in css_files %}
+<link rel="stylesheet" href="/assets/portal/portal/{{ css }}">
+{% endfor %}
+</head>
+<body>
+<div id="app"></div>
+{% if js_file %}
+<script type="module" src="/assets/portal/portal/{{ js_file }}"></script>
+{% else %}
+<p style="font-family:sans-serif;padding:40px;">Frontend not built yet — run <code>npm run build</code> in apps/portal/frontend.</p>
+{% endif %}
+</body>
+</html>

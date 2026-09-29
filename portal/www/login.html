@@ -6,9 +6,9 @@
 <title>{{ title }}</title>
 <style>
   :root {
-    --green: #14342b;
-    --green-dark: #0e261f;
-    --yellow: #f2c94c;
+    --green: #073b24;
+    --green-dark: #06311e;
+    --yellow: #e5d403;
     --cream: #f7f7f5;
     --text-dark: #14231d;
     --text-muted: #6b7a72;
@@ -155,17 +155,19 @@
   }
   .msg.error { background: #fdecec; color: #b3261e; display: block; }
   .msg.success { background: #eaf6ee; color: #1e7a3d; display: block; }
-
+  .mobile-logo { display: none; }
   @media (max-width: 820px) {
-    .wrap { flex-direction: column; }
-    .brand-panel {
-      width: 100%; padding: 32px 24px;
-      min-height: auto;
-    }
-    .brand-copy h1 { font-size: 26px; }
-    .brand-copy p { max-width: none; }
-    .form-panel { padding: 28px 20px 40px; }
-    .form-center { margin: 0 auto; }
+    .brand-panel { display: none; }
+    .wrap { min-height: 100dvh; }
+    .form-panel { padding: max(20px, env(safe-area-inset-top)) 22px max(28px, env(safe-area-inset-bottom)); display: flex; flex-direction: column;}
+    .back-link { align-self: flex-start; }
+    .form-center { justify-content: flex-start; max-width: none; margin: 0; padding-top: 24px; }
+    .mobile-logo { display: block; margin-bottom: 26px; }
+    .mobile-logo img { height: 30px; display: block; }
+    .form-center h2 { font-size: 28px; }
+    input[type="email"], input[type="password"], input[type="text"] { padding: 15px 14px; font-size: 16px; border-radius: 12px; }
+    button.submit { padding: 16px; font-size: 15px; border-radius: 12px; }
+    .form-center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   }
 </style>
 </head>
@@ -194,6 +196,9 @@
     <a class="back-link" href="/">‹ Back to website</a>
 
     <div class="form-center">
+      <div class="mobile-logo">
+        <img src="/assets/portal/images/Logo Landscape Black.png" alt="Evergro" style="height:28px;">
+      </div>
       <div class="badge"><span class="dot"></span> PORTAL</div>
       <h2>Welcome back</h2>
       <p class="sub">Sign in to manage your Evergro services.</p>

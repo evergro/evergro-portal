@@ -123,7 +123,9 @@ role_home_page = {
 # Permissions
 # -----------
 # Permissions evaluated in scripted ways
-
+website_route_rules = [
+    {"from_route": "/portal/<path:app_path>", "to_route": "portal"},
+]
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
