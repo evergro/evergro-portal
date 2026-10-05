@@ -138,7 +138,8 @@ website_route_rules = [
 # ---------------
 # Override standard doctype classes
 fixtures = [
-    {"doctype": "Custom Field", "filters": [["dt", "=", "Contact"], ["fieldname", "=", "custom_birthday"]]}
+    {"doctype": "Custom Field", "filters": [["dt", "=", "Contact"], ["fieldname", "=", "custom_birthday"]]},
+    {"doctype": "Custom Field", "filters": [["dt", "=", "Paystack Customer Authorization"], ["fieldname", "=", "custom_default"]]}
 ]
 # override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
