@@ -1,23 +1,44 @@
+import os
+
 import frappe
 
+def _require_authenticated_user():
+    user = frappe.session.user
+
+    if not user or user == "Guest":
+        frappe.throw(
+            "Authentication required",
+            frappe.PermissionError,
+        )
+
+    return user
 
 def _get_customer():
+    user = _require_authenticated_user()
+
     contact_name = frappe.db.get_value(
-        "Contact Email", {"email_id": frappe.session.user}, "parent"
+        "Contact Email",
+        {"email_id": user},
+        "parent",
     )
+
     if not contact_name:
-        frappe.throw("No customer linked to this account")
+        frappe.throw("No customer contact linked to this account", frappe.PermissionError)
 
     customer = frappe.db.get_value(
         "Dynamic Link",
-        {"parent": contact_name, "link_doctype": "Customer"},
+        {
+            "parent": contact_name,
+            "parenttype": "Contact",
+            "link_doctype": "Customer",
+        },
         "link_name",
     )
+
     if not customer:
-        frappe.throw("No customer linked to this account")
+        frappe.throw("No customer linked to this account", frappe.PermissionError)
 
     return customer, contact_name
-
 
 @frappe.whitelist()
 def get_profile():
@@ -29,8 +50,75 @@ def get_profile():
         "phone": contact.mobile_no or contact.phone,
         "birthday": contact.get("custom_birthday"),
         "customer_since": frappe.db.get_value("Customer", customer, "creation"),
+        "has_image": bool(contact.image),
     }
 
+@frappe.whitelist()
+def get_private_image(doctype, name):
+    customer, contact_name = _get_customer()
+
+    # Only allow images from doctypes we explicitly support.
+    allowed_doctypes = {
+        "Contact",
+        "Address",
+    }
+
+    if doctype not in allowed_doctypes:
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    doc = frappe.get_doc(doctype, name)
+
+    # Contact belongs to the logged-in customer
+    if doctype == "Contact":
+        if name != contact_name:
+            frappe.throw("Not permitted", frappe.PermissionError)
+
+    # Address belongs to the logged-in customer
+    elif doctype == "Address":
+        if not any(
+            link.link_doctype == "Customer"
+            and link.link_name == customer
+            for link in doc.links
+        ):
+            frappe.throw("Not permitted", frappe.PermissionError)
+
+    image_url = doc.get("image")
+
+    if not image_url or not image_url.startswith("/private/files/"):
+        frappe.throw("Image not found", frappe.DoesNotExistError)
+
+    file_name = frappe.db.get_value(
+        "File",
+        {
+            "file_url": image_url,
+            "is_private": 1,
+        },
+        "name",
+    )
+
+    if not file_name:
+        frappe.throw("Image file not found", frappe.DoesNotExistError)
+
+    file_doc = frappe.get_doc("File", file_name)
+
+    if (
+        file_doc.attached_to_doctype != doctype
+        or file_doc.attached_to_name != name
+    ):
+        frappe.throw("Not permitted", frappe.PermissionError)
+
+    file_path = file_doc.get_full_path()
+
+    if not os.path.isfile(file_path):
+        frappe.throw("Image file not found", frappe.DoesNotExistError)
+
+    with open(file_path, "rb") as f:
+        content = f.read()
+
+    frappe.local.response.filename = file_doc.file_name
+    frappe.local.response.filecontent = content
+    frappe.local.response.type = "download"
+    frappe.local.response.content_type = file_doc.content_type or "image/jpeg"
 
 @frappe.whitelist()
 def update_profile(first_name=None, last_name=None, phone=None, birthday=None):
@@ -74,12 +162,23 @@ def get_invoices():
 @frappe.whitelist()
 def get_payment_methods():
     customer, _ = _get_customer()
+
     return frappe.get_all(
         "Paystack Customer Authorization",
-        filters={"customer": customer, "active": 1},
-        fields=["name", "brand", "card_type", "last_4_digits", "expiry_month",
-                "expiry_year", "custom_default"],
-        order_by="custom_is_default desc, creation desc",
+        filters={
+            "customer": customer,
+            "active": 1,
+        },
+        fields=[
+            "name",
+            "brand",
+            "card_type",
+            "last4",
+            "exp_month",
+            "exp_year",
+            "custom_default",
+        ],
+        order_by="custom_default desc, creation desc",
     )
 
 
@@ -93,7 +192,7 @@ def set_default_payment_method(name):
     frappe.db.set_value(
         "Paystack Customer Authorization",
         {"customer": customer},
-        "custom_is_default", 0,
+        "custom_default", 0,
     )
     frappe.db.set_value("Paystack Customer Authorization", name, "custom_default", 1)
     return {"status": "ok"}
