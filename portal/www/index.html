@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Professional lawn care and landscaping across Gauteng. Reliable recurring visits, clear updates and an easy customer portal.">
+<title>{{ title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #073b24;
+    --green-mid: #0f5c3a;
+    --green-deep: #052d1c;
+    --yellow: #e5d403;
+    --yellow-hover: #f0df09;
+    --bg: #fafcfa;
+    --text: #173228;
+    --muted: #6d8179;
+    --line: #e1eae5;
+    --display: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, p, blockquote { margin: 0; }
+  h1, h2, h3, blockquote { font-family: var(--display); }
+  section[id] { scroll-margin-top: 96px; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--green-mid);
+  }
+
+  /* HEADER */
+  .site-header {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(250, 252, 250, 0.92);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(7, 59, 36, 0.08);
+  }
+  .header-inner {
+    height: 76px; max-width: 1280px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-inner .logo img { height: 30px; width: auto; }
+  .nav { display: none; align-items: center; gap: 28px; }
+  .nav a { font-size: 14px; font-weight: 600; color: #50665d; transition: color .15s; }
+  .nav a:hover { color: var(--green); }
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .link-quote { display: none; padding: 10px 16px; font-size: 14px; font-weight: 600; color: var(--green); }
+  .btn-login {
+    height: 44px; display: inline-flex; align-items: center; gap: 8px;
+    padding: 0 16px; border-radius: 12px;
+    background: var(--green); color: #fff; font-size: 14px; font-weight: 600;
+    transition: background .15s;
+  }
+  .btn-login:hover { background: var(--green-mid); }
+
+  /* HERO */
+  .hero-wrap { max-width: 1400px; margin: 0 auto; padding: 12px 12px 0; }
+  .hero {
+    position: relative; min-height: 680px; overflow: hidden;
+    border-radius: 28px; background: var(--green);
+  }
+  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(5,45,28,.95), rgba(7,59,36,.75), rgba(7,59,36,.15));
+  }
+  .hero-content {
+    position: relative; max-width: 1240px; margin: 0 auto; min-height: 680px;
+    display: flex; align-items: center; padding: 80px 24px;
+  }
+  .hero-inner { max-width: 700px; }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    color: #fff; font-size: 12px; font-weight: 600;
+  }
+  .hero-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
+  .hero h1 {
+    margin-top: 28px; font-size: 48px; line-height: .98;
+    letter-spacing: -0.045em; font-weight: 700; color: #fff;
+  }
+  .hero h1 span { display: block; color: var(--yellow); }
+  .hero p.lead {
+    margin-top: 24px; max-width: 36rem; font-size: 16px; line-height: 1.75;
+    color: rgba(255,255,255,.72);
+  }
+  .hero-buttons { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .btn-yellow, .btn-ghost {
+    height: 52px; display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 0 24px; border-radius: 16px; font-size: 14px;
+  }
+  .btn-yellow { background: var(--yellow); color: var(--green); font-weight: 700; transition: background .15s; }
+  .btn-yellow:hover { background: var(--yellow-hover); }
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    color: #fff; font-weight: 600; transition: background .15s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.15); }
+  .hero-checks {
+    margin-top: 48px; display: flex; flex-wrap: wrap; gap: 12px 32px;
+    font-size: 12px; font-weight: 500; color: rgba(255,255,255,.7);
+  }
+  .hero-checks span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-checks i {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--yellow); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-style: normal; font-size: 10px; font-weight: 700;
+  }
+
+  /* QUOTE BAR (static placeholder) */
+  .quote { position: relative; z-index: 10; max-width: 1120px; margin: -40px auto 0; padding: 0 20px; }
+  .quote-card {
+    background: #fff; border: 1px solid #dde8e2; border-radius: 26px; padding: 20px;
+    box-shadow: 0 20px 60px rgba(7,59,36,.13);
+  }
+  .quote-title h2 { margin-top: 4px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .quote-form { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .quote-input {
+    height: 52px; flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+    border: 1px solid #d4e0da; border-radius: 12px; background: #f8faf9;
+  }
+  .quote-input:focus-within { border-color: var(--green-mid); }
+  .quote-input input {
+    min-width: 0; flex: 1; border: 0; outline: 0; background: transparent;
+    font-size: 14px; font-family: inherit; color: var(--text);
+  }
+  .quote-input input::placeholder { color: #98a69f; }
+  .quote-form button {
+    height: 52px; padding: 0 24px; border: 0; border-radius: 12px; cursor: pointer;
+    background: var(--green); color: #fff; font-size: 14px; font-weight: 700; font-family: inherit;
+    transition: background .15s;
+  }
+  .quote-form button:hover { background: var(--green-mid); }
+
+  /* BENEFITS */
+  .benefits { padding: 96px 0; }
+  .benefit-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  .benefit {
+    background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 24px;
+  }
+  .benefit .num { font-family: var(--display); font-size: 14px; font-weight: 700; color: #a0afa8; }
+  .benefit h3 { margin-top: 40px; font-size: 20px; font-weight: 600; }
+  .benefit p { margin-top: 8px; font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+  /* ABOUT */
+  .about { background: var(--green); color: #fff; padding: 96px 0; }
+  .about-grid { display: grid; gap: 56px; align-items: center; grid-template-columns: 1fr; }
+  .about-img { position: relative; }
+  .about-img img { width: 100%; aspect-ratio: 4 / 4.4; object-fit: cover; border-radius: 32px; }
+  .about-badge {
+    position: absolute; bottom: -20px; right: 16px; padding: 20px; border-radius: 16px;
+    background: var(--yellow); color: var(--green);
+  }
+  .about-badge strong { display: block; font-family: var(--display); font-size: 30px; font-weight: 700; }
+  .about-badge small { font-size: 12px; font-weight: 600; }
+  .about .eyebrow { color: var(--yellow); }
+  .about h2 { margin-top: 16px; font-size: 36px; line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; }
+  .about p.body { margin-top: 24px; font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.65); }
+  .stats {
+    margin-top: 32px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .stats strong { display: block; font-family: var(--display); font-size: 24px; font-weight: 700; color: var(--yellow); }
+  .stats span { display: block; margin-top: 4px; font-size: 12px; color: rgba(255,255,255,.5); }
+
+  /* SERVICES */
+  .services { padding: 96px 0; }
+  .services-head { display: flex; flex-direction: column; gap: 16px; }
+  .services-head h2 { margin-top: 12px; font-size: 36px; font-weight: 700; letter-spacing: -0.03em; }
+  .services-head p { max-width: 448px; font-size: 14px; line-height: 1.7; color: var(--muted); }
+  .service-grid { margin-top: 40px; display: grid; gap: 20px; grid-template-columns: 1fr; }
+  .service {
+    position: relative; min-height: 330px; overflow: hidden; border-radius: 28px; color: #fff;
+  }
+  .service img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    transition: transform .7s;
+  }
+  .service:hover img { transform: scale(1.05); }
+  .service .shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,45,28,.95), rgba(7,59,36,.2), transparent);
+  }
+  .service .text {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 28px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+  }
+  .service .n { font-size: 12px; font-weight: 700; color: var(--yellow); }
+  .service h3 { margin-top: 8px; font-size: 24px; font-weight: 700; }
+  .service p { margin-top: 4px; max-width: 384px; font-size: 14px; color: rgba(255,255,255,.65); }
+  .service .arrow {
+    width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; background: #fff; color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* FEATURED PROJECT */
+  .project { margin: 0 20px 96px; overflow: hidden; border-radius: 32px; background: #e7f0eb; }
+  .project-grid { display: grid; grid-template-columns: 1fr; }
+  .project-text { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+  .project-text h2 { margin-top: 12px; font-size: 36px; font-weight: 700; letter-spacing: -0.03em; }
+  .project-text p { margin-top: 16px; font-size: 14px; line-height: 1.7; color: #60766d; }
+  .project-text a { margin-top: 28px; width: fit-content; font-size: 14px; font-weight: 700; color: var(--green); }
+  .project img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; }
+
+  /* TESTIMONIAL */
+  .testimonial { max-width: 1000px; margin: 0 auto; padding: 0 20px 96px; text-align: center; }
+  .testimonial blockquote {
+    margin-top: 24px; font-size: 30px; font-weight: 600; line-height: 1.2;
+    letter-spacing: -0.025em; color: var(--text);
+  }
+  .testimonial .who { margin-top: 20px; font-size: 14px; font-weight: 600; }
+  .testimonial .who span { font-weight: 400; color: #84958f; }
+
+  /* CTA BAND */
+  .cta { background: var(--yellow); padding: 80px 0; }
+  .cta-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center;
+  }
+  .cta .eyebrow { color: rgba(7,59,36,.6); }
+  .cta h2 { margin-top: 8px; font-size: 36px; font-weight: 700; letter-spacing: -0.03em; color: var(--green); }
+  .cta a.btn {
+    flex-shrink: 0; padding: 16px 28px; border-radius: 16px;
+    background: var(--green); color: #fff; font-size: 14px; font-weight: 700;
+  }
+
+  /* FOOTER */
+  .footer { background: var(--green-deep); color: #fff; padding: 48px 0; }
+  .footer .container { display: flex; flex-direction: column; gap: 32px; }
+  .footer-top { display: flex; flex-direction: column; gap: 24px; }
+  .footer-top img { height: 28px; width: auto; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 20px; font-size: 12px; color: rgba(255,255,255,.55); }
+  .footer-links a:hover { color: #fff; }
+  .footer-bottom {
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1);
+    display: flex; flex-direction: column; gap: 8px; font-size: 11px; color: rgba(255,255,255,.35);
+  }
+
+  /* BREAKPOINTS */
+  @media (min-width: 640px) {
+    .link-quote { display: block; }
+    .hero h1 { font-size: 62px; }
+    .hero p.lead { font-size: 18px; }
+    .hero-buttons { flex-direction: row; }
+    .quote-card { padding: 28px; }
+    .quote-form { flex-direction: row; }
+    .about h2, .services-head h2, .project-text h2, .cta h2 { font-size: 40px; }
+    .about-badge { right: 24px; }
+    .services-head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+    .project-text { padding: 48px; }
+    .testimonial blockquote { font-size: 36px; }
+    .footer-top { flex-direction: row; align-items: center; justify-content: space-between; }
+    .footer-bottom { flex-direction: row; justify-content: space-between; }
+  }
+  @media (min-width: 768px) {
+    .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .container { padding: 0 32px; }
+    .header-inner { padding: 0 32px; }
+    .nav { display: flex; }
+    .hero-wrap { padding: 12px 24px 0; }
+    .hero { min-height: 700px; border-radius: 38px; }
+    .hero-content { min-height: 700px; padding: 80px 40px; }
+    .hero h1 { font-size: 76px; }
+    .quote-card { display: flex; align-items: center; gap: 32px; }
+    .quote-title { width: 35%; }
+    .quote-form { margin-top: 0; }
+    .benefit-grid { grid-template-columns: repeat(4, 1fr); }
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    .about h2 { font-size: 48px; }
+    .service-grid { grid-template-columns: 1fr 1fr; }
+    .project { margin: 0 auto 96px; max-width: 1240px; }
+    .project-grid { grid-template-columns: .8fr 1.2fr; }
+    .cta-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="/"><img src="/assets/portal/images/Logo%20Landscape%20Black.png" alt="Evergro"></a>
+    <nav class="nav" aria-label="Website navigation">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#why-us">Why Evergro</a>
+    </nav>
+    <div class="header-actions">
+      <a class="link-quote" href="#quote">Get a quote</a>
+      <!-- Both logged-out and logged-in users go to /login. login.py sends logged-in users to their own home page. -->
+      <a class="btn-login" href="/login">{% if logged_in %}Open dashboard{% else %}Customer login{% endif %} <span>›</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero-wrap">
+    <div class="hero">
+      <!-- TODO: replace stock photo with a real Evergro photo and host it under portal/public/images -->
+      <img src="https://images.unsplash.com/photo-1734303023491-db8037a21f09?auto=format&fit=crop&w=1800&q=85" alt="Evergro landscaping professional caring for a residential lawn">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-inner">
+          <span class="hero-pill"><span class="dot"></span>Trusted lawn care across Gauteng</span>
+          <h1>A better lawn.<span>Without the work.</span></h1>
+          <p class="lead">Professional landscaping and recurring lawn care that arrives on time, keeps you informed, and leaves your outdoor space looking its best.</p>
+          <div class="hero-buttons">
+            <a class="btn-yellow" href="#quote">Get a free estimate →</a>
+            <a class="btn-ghost" href="#projects">See our work</a>
+          </div>
+          <div class="hero-checks">
+            <span><i>✓</i>Insured professional teams</span>
+            <span><i>✓</i>Easy online scheduling</span>
+            <!-- TODO: confirm "photos after every visit" is something Evergro actually offers -->
+            <span><i>✓</i>Photos after every visit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE BAR: static placeholder, no action yet -->
+  <section id="quote" class="quote">
+    <div class="quote-card">
+      <div class="quote-title">
+        <p class="eyebrow">Free estimate</p>
+        <h2>What does your lawn need?</h2>
+      </div>
+      <!-- TODO: connect to a real estimate/contact flow (WhatsApp, phone or a form) -->
+      <form class="quote-form" onsubmit="return false">
+        <label class="quote-input"><span>⌖</span><input type="text" placeholder="Enter your street address"></label>
+        <button type="button">Get my price</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="container">
+      <div class="benefit-grid">
+        <article class="benefit"><span class="num">01</span><h3>Reliable by design</h3><p>Simple scheduling, clear arrival windows, and updates before every visit.</p></article>
+        <article class="benefit"><span class="num">02</span><h3>Teams you can trust</h3><p>Uniformed, insured professionals who respect your home and property.</p></article>
+        <article class="benefit"><span class="num">03</span><h3>Healthier lawns</h3><p>We care for long-term growth and colour, not just a quick cut.</p></article>
+        <article class="benefit"><span class="num">04</span><h3>Everything in one place</h3><p>Manage visits, payments, notes and support from your portal.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="container about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1689728318937-17d24bc0a65c?auto=format&fit=crop&w=1000&q=85" alt="Evergro team member trimming a lawn edge" loading="lazy">
+        <!-- TODO: verify every number in this section before launch -->
+        <div class="about-badge"><strong>10+</strong><small>years serving Gauteng</small></div>
+      </div>
+      <div>
+        <p class="eyebrow">About Evergro</p>
+        <h2>Outdoor spaces made easier to love.</h2>
+        <p class="body">We design, build and care for gardens that fit the way you live. From reliable weekly mowing to complete landscape transformations, our team combines practical expertise with thoughtful service.</p>
+        <div class="stats">
+          <div><strong>1,200+</strong><span>lawns cared for</span></div>
+          <div><strong>4.9/5</strong><span>customer rating</span></div>
+          <div><strong>98%</strong><span>on-time visits</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="services-head">
+        <div>
+          <p class="eyebrow">Our services</p>
+          <h2>Care for every kind of green.</h2>
+        </div>
+        <p>From weekly upkeep to a complete outdoor redesign, choose the help your property needs.</p>
+      </div>
+      <div class="service-grid">
+        <article class="service">
+          <img src="https://images.unsplash.com/photo-1690068023694-053da714f95f?auto=format&fit=crop&w=900&q=85" alt="" loading="lazy">
+          <div class="shade"></div>
+          <div class="text"><div><span class="n">01</span><h3>Lawn care &amp; maintenance</h3><p>Mowing, edging, fertilising and seasonal health plans.</p></div><span class="arrow">↗</span></div>
+        </article>
+        <article class="service">
+          <img src="https://images.unsplash.com/photo-1658595060302-20219e956ad0?auto=format&fit=crop&w=900&q=85" alt="" loading="lazy">
+          <div class="shade"></div>
+          <div class="text"><div><span class="n">02</span><h3>Landscape design</h3><p>Beautiful, functional gardens planned around your home.</p></div><span class="arrow">↗</span></div>
+        </article>
+        <article class="service">
+          <img src="https://images.unsplash.com/photo-1689728318937-17d24bc0a65c?auto=format&fit=crop&w=900&q=85" alt="" loading="lazy">
+          <div class="shade"></div>
+          <div class="text"><div><span class="n">03</span><h3>Garden clean-ups</h3><p>A complete reset for overgrown beds, hedges and outdoor areas.</p></div><span class="arrow">↗</span></div>
+        </article>
+        <article class="service">
+          <img src="https://images.unsplash.com/photo-1734303023491-db8037a21f09?auto=format&fit=crop&w=900&q=85" alt="" loading="lazy">
+          <div class="shade"></div>
+          <div class="text"><div><span class="n">04</span><h3>Irrigation solutions</h3><p>Efficient installations and repairs for effortless watering.</p></div><span class="arrow">↗</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECT -->
+  <!-- TODO: Rondebosch is in Cape Town. Replace with a real Evergro project. -->
+  <section id="projects" class="project">
+    <div class="project-grid">
+      <div class="project-text">
+        <p class="eyebrow">Featured project</p>
+        <h2>A calmer garden in Rondebosch.</h2>
+        <p>A tired family lawn transformed with clean edging, healthier grass and an easy-care planting plan.</p>
+        <a href="#quote">Start your transformation →</a>
+      </div>
+      <img src="https://images.unsplash.com/photo-1658595060302-20219e956ad0?auto=format&fit=crop&w=900&q=85" alt="Landscaped residential garden project" loading="lazy">
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <!-- TODO: use a real, permitted customer testimonial -->
+  <section id="why-us" class="testimonial">
+    <p class="eyebrow">What customers say</p>
+    <blockquote>“They arrive when they say they will, keep us updated, and the garden has never looked healthier.”</blockquote>
+    <p class="who">Nolwazi M. <span>· Johannesburg</span></p>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <p class="eyebrow">Ready when you are</p>
+        <h2>Let’s make your outside feel better.</h2>
+      </div>
+      <a class="btn" href="#quote">Get a free estimate</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <a href="/"><img src="/assets/portal/images/Logo%20Landscape%20White.png" alt="Evergro"></a>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#quote">Contact</a>
+        <a href="/login">Customer portal</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <!-- TODO: confirm the "Part of the Evergro Group" wording and add real Privacy / Terms links -->
+      <p>© 2026 Evergro Landscapers. Part of the Evergro Group.</p>
+      <p>Privacy Policy · Terms &amp; Conditions</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

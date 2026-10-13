@@ -129,7 +129,7 @@ website_route_rules = [
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
-#
+website_home_page = "index"
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
