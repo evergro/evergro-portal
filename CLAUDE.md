@@ -82,7 +82,7 @@ apps/portal/frontend/src/              # Vue source (screens, components, api, c
 ## 3. MVP scope
 
 ### The flow
-1. **Domain root `/`** shows the public landing page (what Evergro does, contact, a Log in button). No login screen inside the Vue app.
+1. **Domain root `/`** shows the public landing page. **Already done:** it is a static Jinja page (`www/index.html` + `www/index.py`, wired in `hooks.py`). Do not rebuild it in Vue and do not touch it unless asked. No login screen inside the Vue app.
 2. **Log in** uses the existing custom Frappe login at `/login`. This is the only login.
 3. After login, via `role_home_page`: **Customer → `/portal`**, **employee roles → `/app`** (already working; do not change employee behaviour).
 4. An unauthenticated visitor to `/portal/...` is redirected to `/login` (with redirect back). The Vue app never renders its own login, lock or sign-up screen.
@@ -118,7 +118,7 @@ Only: **Create a ticket**, **Email us**, **WhatsApp us**, **Call us**, **FAQs**.
 ### OUT of scope (do not build, route or nav)
 Inbox/notifications, notification preferences, services store, add-service chat flow, reviews, banners/promo content, loyalty, weather notices, quotations tab, quotation accept/decline, partial payments, multiple cards, change-default/remove card, editing properties, referral tracking, ticket replies, dismissing alerts.
 
-Existing screens for out-of-scope features and the separate `Desktop*` pages: remove them from the router and nav, but **do not delete the files** until I ask for a cleanup commit. In-scope screens are reused, merged into one responsive component each, and stripped of fake data.
+`LandingPage`, `HomePublic`, `LockScreen`, `LoginScreen` and `PortalLogin` are already deleted. Existing screens for out-of-scope features and the separate `Desktop*` pages: remove them from the router and nav, but **do not delete the files** until I ask for a cleanup commit. In-scope screens are reused, merged into one responsive component each, and stripped of fake data.
 
 ---
 
@@ -301,8 +301,8 @@ Builds cleanly; works at 360 px and desktop with loading/empty/error states; ref
 **Phase 1 (code only)**
 - [ ] Step 0: hot reload dev server
 - [ ] Step 1: investigation report (no code)
-- [ ] Step 2: landing page at domain root
-- [ ] Step 3: remove in-portal login, guard `/portal` with Frappe session
+- [x] Step 2: landing page at domain root (static `www/index.html`; Vue landing/login screens deleted)
+- [ ] Step 3 (remaining): guard `/portal` for Guests (redirect to /login) and a Log out action. The Vue login screens are already gone
 - [ ] Step 4: real routing + three-tab responsive shell (one UI for mobile and desktop)
 - [ ] Step 5: shared data layer; migrate existing profile, invoices and card loading
 - [ ] Step 6: Account menu + personal details

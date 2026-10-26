@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 export default defineConfig({
-  base: '/assets/portal/portal/',
+  base: 'portal/',
 
   plugins: [
     vue(),
@@ -21,10 +21,10 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 8080,
     strictPort: true,
-    cors: true,
+    cors: false,
     hmr: {
       protocol: 'ws',
-      host: 'localhost',
+      host: 'evergro.local',
       port: 8080,
     },
     proxy: {

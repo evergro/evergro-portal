@@ -1,11 +1,18 @@
 {
   "index.html": {
-    "file": "assets/index-CMTqGNKS.js",
+    "file": "assets/index-C6Ny1wc8.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
     "css": [
-      "assets/index-BGDTdZ2B.css"
+      "assets/index-CA0RzpRG.css"
+    ],
+    "assets": [
+      "assets/Logo Landscape White-DzGfMgP5.png"
     ]
+  },
+  "src/assets/Logo Landscape White.png": {
+    "file": "assets/Logo Landscape White-DzGfMgP5.png",
+    "src": "src/assets/Logo Landscape White.png"
   }
 }
