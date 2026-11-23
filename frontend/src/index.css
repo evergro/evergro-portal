@@ -1,54 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
-@import 'tailwindcss';
+@import 'frappe-ui/style.css';
 
-@theme {
-  --color-brand: #073B24;
-  --color-brand-mid: #0F5C3A;
-  --color-brand-light: #E6F0EB;
-  --color-accent: #E5D403;
-  --color-accent-dark: #C9BA02;
-  --color-bg: #F3F7F4;
-  --color-ok: #16A34A;
-  --color-warn: #B45309;
-  --color-error: #DC2626;
-  --color-muted: #9CA3AF;
-  --font-family-display: 'Outfit', system-ui, sans-serif;
-  --font-family-sans: 'DM Sans', system-ui, sans-serif;
+:root {
+  --color-primary: #073b24;
+  --color-primary-soft: #edf5f0;
+  --color-accent: #e5d403;
+  --color-accent-soft: #fffde6;
+  --font-sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
 }
 
-html, body, #root {
-  height: 100%;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #f7f9f7;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    color: #173026;
+    background:
+      radial-gradient(circle at 92% 4%, rgba(229, 212, 3, 0.09), transparent 24rem),
+      #f7f9f7;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
-* {
-  -webkit-font-smoothing: antialiased;
-}
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
 
-body {
-  margin: 0;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--color-bg);
-  color: #111827;
-}
+  .card-shadow {
+    box-shadow: 0 12px 35px rgba(7, 59, 36, 0.08);
+  }
 
-h1, h2, h3, h4, h5 {
-  font-family: 'Outfit', system-ui, sans-serif;
-}
+  /* Keeps content clear of the camera cut-out / status bar on mobile. */
+  .safe-top {
+    padding-top: max(env(safe-area-inset-top), 0.875rem);
+  }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.before-after-slider {
-  position: relative;
-  overflow: hidden;
-}
-
-.swipe-card {
-  transition: transform 0.2s ease;
+  @media (min-width: 48rem) {
+    .safe-top {
+      padding-top: 0;
+    }
+  }
 }

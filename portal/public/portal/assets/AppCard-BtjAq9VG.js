@@ -1,0 +1,1 @@
+import{S as e,T as t,et as n,h as r,u as i}from"./AppIcon-BACeuTsy.js";var a=r({__name:`AppCard`,props:{padded:{type:Boolean,default:!0}},setup(r){return(a,o)=>(e(),i(`section`,{class:n([`card-shadow rounded-3xl border border-primary/6 bg-white`,{"p-5 md:p-6":r.padded}])},[t(a.$slots,`default`)],2))}});export{a as t};
