@@ -7,6 +7,7 @@ import ListRow from "@/components/ListRow.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
 import { getCustomer } from "@/services/mockApi";
 import type { Customer } from "@/types";
+import { useCall } from 'frappe-ui';
 
 const customer = ref<Customer>();
 const confirmOpen = ref(false);
@@ -21,12 +22,17 @@ const rows = [
 ];
 
 onMounted(async () => (customer.value = await getCustomer()));
-function logout() {
-  confirmOpen.value = false;
-  sessionStorage.clear();
-  toast.value = "You’ve been logged out";
-  window.setTimeout(() => (toast.value = ""), 2200);
-}
+const logout = useCall({
+  // confirmOpen.value = false;
+  // sessionStorage.clear();
+  // toast.value = "You’ve been logged out";
+  // window.setTimeout(() => (toast.value = ""), 2200);
+  url: '/api/v2/method/logout',
+  onSuccess() {
+    window.location.href = '/login?redirect-to=%2Fportal/account'
+  },
+  immediate: false,
+})
 </script>
 
 <template>
@@ -44,7 +50,7 @@ function logout() {
       <ListRow v-for="row in rows" :key="row.to" v-bind="row" />
       <div class="md:hidden"><ListRow label="Log out" icon="logout" danger @click="confirmOpen = true" /></div>
     </AppCard>
-    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout" />
+    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout.submit()" />
     <ToastMessage :message="toast" />
   </ThumbPage>
 </template>

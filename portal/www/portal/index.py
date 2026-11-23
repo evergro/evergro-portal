@@ -2,13 +2,18 @@ import frappe
 import json
 import os
 
+no_cache = 1
+
 def get_context(context):
     if frappe.session.user == "Guest":
         frappe.local.flags.redirect_location = "/login"
         raise frappe.Redirect
 
     context.no_cache = 1
-
+    context.boot = {
+        "csrf_token": frappe.sessions.get_csrf_token(),
+        "user": frappe.session.user,
+    }
     manifest_path = frappe.get_app_path("portal", "public", "portal", ".vite", "manifest.json")
     if os.path.exists(manifest_path):
         with open(manifest_path) as f:
