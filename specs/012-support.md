@@ -1,6 +1,6 @@
 # Support
 
-Date: 2026-11-23
+Date: 2026-11-23, changed 2026-11-27
 Status: **Draft.** Small. Contact details only, as in the mockup.
 
 ## Problem
@@ -9,7 +9,7 @@ The Support tab and the promo pages show a phone number and a WhatsApp number fr
 
 ## Goal
 
-The numbers come from one settings record that staff can change without a developer.
+The numbers come from the company record in ERPNext, so staff change them in one place without a developer.
 
 ## What the mockup has
 
@@ -19,12 +19,25 @@ The numbers come from one settings record that staff can change without a develo
 
 | # | Decision | Choice |
 | :--- | :--- | :--- |
-| 1 | Where numbers live | `Evergro Portal Settings` (`support_phone`, `support_whatsapp`) |
-| 2 | Buttons | `tel:` link and `https://wa.me/<number>` link |
-| 3 | Guests | A separate guest method that returns the same two numbers only |
-| 4 | Tickets | Not in the mockup. A ticket form on `Issue` is a later spec |
+| 1 | Which company | The default company: `Global Defaults > default_company` (`Evergro` on `evergro.local`) |
+| 2 | Phone | The standard `Company.phone_no` field |
+| 3 | WhatsApp | New custom field `Company.custom_whatsapp` (Data, digits with country code, for example `27...`). Company has no standard WhatsApp field |
+| 4 | Buttons | `tel:` link and `https://wa.me/<number>` link. A button whose number is empty is hidden |
+| 5 | Guests | A separate guest method that returns the same two numbers only |
+| 6 | Tickets | Not in the mockup. A ticket form on `Issue` is a later spec |
 
 ## Code
+
+```python
+# portal/services/support.py
+import frappe
+
+
+def get_support() -> dict:
+	company = frappe.db.get_single_value("Global Defaults", "default_company")
+	phone, whatsapp = frappe.db.get_value("Company", company, ["phone_no", "custom_whatsapp"])
+	return {"phone": phone or "", "whatsapp": whatsapp or ""}
+```
 
 ```python
 # portal/api/portal.py
@@ -35,6 +48,7 @@ def get_support() -> dict:
 
 # portal/api/promo.py
 @frappe.whitelist(allow_guest=True)
+@rate_limit(limit=30, seconds=60)
 def get_public_support() -> dict:
 	return support.get_support()
 ```
@@ -48,20 +62,22 @@ export const useSupport = () =>
 
 ### Phase 0: facts
 
-- Ask which number customers should see, since Evergro has two phone numbers. Record the answer.
+- Record the default company, its `phone_no`, and that `Company` has no WhatsApp field yet. Read the `Support` type in `types/index.ts` and list its keys.
 
-### Phase 1: settings and method
+### Phase 1: field, method and Support tab
 
-- Fill `Evergro Portal Settings` (created in spec 010 Phase 1). `get_support` returns the numbers. Backend test: it returns the settings values and refuses a guest.
+- Add `Company.custom_whatsapp` as a fixture. Fill it and `phone_no` on the default company. `get_support` returns the numbers.
+- Backend tests: it returns the company values, an empty WhatsApp gives `""`, a guest is refused.
 - Playwright: the Support tab buttons have the right `tel:` and `wa.me` links.
 
 ### Phase 2: guest method
 
-- `get_public_support` with rate limiting. Backend test: a guest gets the numbers and nothing else, and many calls in a minute are refused. Playwright: the promo landing page shows the numbers.
+- `get_public_support` with rate limiting. Backend test: a guest gets the two numbers and nothing else, and too many calls in a minute are refused.
+- Playwright: the promo landing page shows the numbers.
 
 ### Phase 3: docs
 
-- Screenshots in `docs/`. Document where staff change the numbers.
+- Screenshots in `docs/`. Document that staff change the numbers in Desk on the default **Company**.
 
 ## Tests
 
@@ -74,7 +90,7 @@ export const useSupport = () =>
 
 ## Open questions
 
-1. Which phone number and WhatsApp number do customers see?
+None. Decided 2026-11-27: the numbers come from the default company.
 
 ## Progress
 

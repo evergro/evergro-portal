@@ -15,6 +15,8 @@ Everything the portal stores or reads. Standard doctypes come first. Every new d
 | `Paystack Customer Authorization` | The one card (fields in spec 009) | Read, update through `frappe_paystack` |
 | `Paystack Payment Log` | Payment page reference | Created by `frappe_paystack` |
 | `Lead`, `Lead Source` | Quote requests and waitlist from the promo flow | Create (guest, rate limited) |
+| `Company` | Support phone (`phone_no`) and WhatsApp (`custom_whatsapp`) of the default company | Read |
+| `Sales Order` | A once-off promo service, delivered and charged on the day of service | Create (spec 013) |
 | `Coupon Code` | Campaign discount tracking | Read |
 | `Item`, `Item Price` | Promo prices per bundle and tier | Read |
 
@@ -26,7 +28,7 @@ Everything the portal stores or reads. Standard doctypes come first. Every new d
 | `Service Visit Task` | Child of Service Visit, shared | A list of what was done | 006 |
 | `Customer Notification Setting` | Normal, one row per customer and channel | Ten switches would need ten custom fields on `Contact` | 011 |
 | `Customer Referral` | Normal | Nothing standard records a referred person, status and reward | 010 |
-| `Evergro Portal Settings` | Single | Support phone and WhatsApp number, referral goal and reward. (`Portal Settings` already exists in Frappe, so this name is different) | 010, 012 |
+| `Evergro Portal Settings` | Single | Referral goal, reward and link. (`Portal Settings` already exists in Frappe, so this name is different. Support numbers live on `Company`, spec 012) | 010 |
 | `Promo Campaign` | Normal | Campaign copy, dates, discount and the link to a `Coupon Code` | 013 |
 | `Service Area` | Normal | Which addresses are priced automatically, quoted by hand, or waitlisted | 013 |
 | `Service Bundle` | Normal | A named bundle with what it includes | 013 |
@@ -65,7 +67,7 @@ Naming: `SV-.YYYY.-.#####`. Permissions: System Manager full. `Customer` role ge
 
 ### Evergro Portal Settings (single)
 
-`support_phone`, `support_whatsapp` (digits with country code), `referral_goal` (5), `referral_reward` (150), `referral_bonus` (500), `referral_base_url` (`evergro.co.za/refer`).
+`referral_goal` (5), `referral_reward` (150), `referral_bonus` (500), `referral_base_url` (`evergro.co.za/refer`).
 
 ### Promo Campaign
 
@@ -84,6 +86,7 @@ Naming: `SV-.YYYY.-.#####`. Permissions: System Manager full. `Customer` role ge
 | Doctype | Field | Type | Why | Spec |
 | :--- | :--- | :--- | :--- | :--- |
 | `Contact` | `custom_birthday` | Date | Exists | 007 |
+| `Company` | `custom_whatsapp` | Data | Company has a phone field but no WhatsApp field | 012 |
 | `Paystack Customer Authorization` | `custom_default` | Check | Exists | 009 |
 | `Customer` | `custom_referral_code` | Data, unique, read only | The code a customer shares | 010 |
 | `Address` | `custom_photo` | Attach Image | The property photo on the card | 008 |
@@ -98,4 +101,4 @@ Naming: `SV-.YYYY.-.#####`. Permissions: System Manager full. `Customer` role ge
 
 ## Static content kept in the frontend (v1)
 
-Marketing copy that changes rarely stays in `frontend/src/config/promo/*.json`, reviewed in pull requests: guide questions, intro slides, FAQs, how-it-works steps, analysis steps, house layouts, map config, member promos. Move one into a doctype only when someone other than a developer needs to edit it.
+Marketing copy that changes rarely stays in `frontend/src/config/promo/*.json`, reviewed in pull requests: guide questions, intro slides, FAQs, how-it-works steps, analysis steps, house layouts, map config, member promos. Move one into a doctype only when someone other than a developer needs to edit it. The Google Maps key is never in these files: it comes from the site config `google_maps_api_key` through `get_map_config` (spec 013).

@@ -32,6 +32,11 @@ A guest opens `/promo/<campaign>`, enters an address, and ends with an active su
 | 8 | Account and subscription | One call, `start_subscription`, does everything in one database transaction, so a failure leaves no orphan account |
 | 9 | Passwords | Sent once over HTTPS in that call and never stored in the browser |
 | 10 | Referral link | `?ref=CODE` on the landing page is kept in the flow state. `start_subscription` creates a `Customer Referral` as `Pending`. The first successful payment sets `Signed up` |
+| 11 | Payment at checkout | The customer pays R1 on the Paystack page to save their card and give consent. Nothing else is charged at checkout. The R1 follows spec 009 Decision 4: it comes off the first invoice (decided 2026-11-27) |
+| 12 | Once-off service | A `Sales Order` with `delivery_date` set to the day of service. The rest is invoiced due on that day and charged to the saved card on that day |
+| 13 | Subscription | The `Subscription` starts on the next billing date. Staff create the invoice for the current cycle by hand, due on the day the first service is done. Paystack charges the saved card on that day |
+| 14 | Collection | In both cases the payment is due on the day of service and is collected automatically with the saved card. Phase 0 checks whether `frappe_paystack` already charges due invoices. If not, Phase 6 adds a daily job that does |
+| 15 | Lawn map | The Google Maps JavaScript API with the `geometry` and `drawing` libraries. The customer draws the lawn on the satellite view and the area comes from `google.maps.geometry.spherical.computeArea`. The browser key is read on the server from the site config `google_maps_api_key` (the same key `frappe_paystack` uses) and sent by `get_map_config`. It is never in the repo or in `src/config/promo/*.json`. The key must be restricted to the site's domains in Google Cloud |
 
 ## Code
 
@@ -79,7 +84,7 @@ def recommend_plans(answers: dict, tier: str) -> list[dict]:
 @frappe.whitelist(allow_guest=True, methods=["POST"])
 @rate_limit(limit=3, seconds=300)
 def start_subscription(details: dict) -> dict:
-	return promo.start_subscription(details)  # {"url": "<payment page>"} or {"status": "active"}
+	return promo.start_subscription(details)  # {"url": "<R1 payment page>"}
 ```
 
 ```ts
@@ -100,7 +105,7 @@ export const useStartSubscription = () =>
   });
 ```
 
-What `start_subscription` does, inside one transaction: refuse a duplicate email (with the same message whether or not the email exists, so it does not reveal accounts), create the `User` (Website User, role `Customer`) with the password, the `Customer` with a `Portal User` row, the `Contact`, the `Address` (with `custom_service_address` on the subscription pointing at it), the `Subscription` for the chosen plan, then ask `frappe_paystack` for the payment page for the first invoice.
+What `start_subscription` does, inside one transaction: refuse a duplicate email (with the same message whether or not the email exists, so it does not reveal accounts), create the `User` (Website User, role `Customer`) with the password, the `Customer` with a `Portal User` row, the `Contact`, the `Address` (with `custom_service_address` on the subscription pointing at it), then the `Subscription` (starting on the next billing date) or the `Sales Order` (delivery on the day of service) for the chosen plan, then ask `frappe_paystack` for the R1 payment page that saves the card and records consent.
 
 ## Phases
 
@@ -109,7 +114,8 @@ What `start_subscription` does, inside one transaction: refuse a duplicate email
 - Read every promo view, `usePromoFlow`, `promoApi.ts` and the components in `features/promo/components/`. List every field the flow collects and every function it calls. Fix the list of functions above.
 - Read `frappe_paystack` and the Summer Special page it already contains: how it creates a Payment Log, saves a card, and bills a subscription on a fixed day. This spec replaces that page. Record which of its code and records to reuse, and what to remove from `frappe_paystack` once this spec ships.
 - Check which `Item`, `Item Price`, `Subscription Plan` and `Coupon Code` records already exist for the plans in the mockup. Record prices.
-- Decide the map option (open question 2) and the payment model (open question 1) before Phase 5.
+- Record whether `frappe_paystack` charges a due invoice with the saved card on its due date, and how. Record the billing date the subscriptions use today.
+- Confirm `frappe.conf.google_maps_api_key` is set on `evergro.local` (check that it exists, never print it) and that the key has the Maps JavaScript API enabled.
 
 ### Phase 1: doctypes and seed data
 
@@ -123,6 +129,7 @@ What `start_subscription` does, inside one transaction: refuse a duplicate email
 
 ### Phase 3: address classification and leads
 
+- `get_map_config` (guest) returns the Maps key from the site config and the map centre. `LocateView` loads the Maps JavaScript API with it and measures the drawn lawn with `computeArea`. Backend test: the method returns the configured key and fails loudly when it is missing.
 - `classify_address` from `Service Area` keywords. `submit_quote_request` and `join_waitlist` create a `Lead` with the consent text. Bind the locate, quote requested and waitlist screens.
 - Backend tests: each area, an unmatched address, an empty address, an over-long address, a lead without consent is refused, the sixth request in five minutes is refused.
 - Playwright: three addresses reach the three outcomes.
@@ -139,8 +146,8 @@ What `start_subscription` does, inside one transaction: refuse a duplicate email
 
 ### Phase 6: payment, success, coupon and referral
 
-- Connect the payment page, the coupon on the first invoice, and the referral status change after the first successful payment. Bind the success screen to real data.
-- Backend tests: coupon applied once, referral becomes `Signed up` after payment and not before. Hand check in Paystack test mode. Playwright with Paystack mocked.
+- Connect the R1 payment page, the coupon on the first invoice, the charge on the day of service (Decision 14), and the referral status change after the first successful payment. Bind the success screen to real data.
+- Backend tests: coupon applied once, R1 comes off the first invoice, a subscription starts on the next billing date, a sales order is charged on its delivery date and only once, referral becomes `Signed up` after payment and not before. Hand check in Paystack test mode. Playwright with Paystack mocked.
 
 ### Phase 7: hardening and docs
 
@@ -154,17 +161,16 @@ What `start_subscription` does, inside one transaction: refuse a duplicate email
 ## Out of scope
 
 - A page that lets staff edit the static content.
-- Sales Orders and quotes (that is the quote link in `evergro_core`).
+- Quotes (that is the quote link in `evergro_core`).
 - WhatsApp follow-up of leads.
 
 ## Open questions
 
-1. **First payment.** The mockup says the first month is paid today. The Summer Special decision was R1 today and the rest on the day of service, with billing on the 25th. Which applies? Phase 5 does not start until this is answered.
-2. **Lawn measuring.** The mockup draws on top of an unofficial Google Maps embed (no key). The drawing assumes the embed's zoom and centre match what the code computed, which Google does not promise, so areas can be wrong. Options: the Maps JavaScript API with a key (billed), or Leaflet with a satellite tile source. Which one?
-3. Where should consent for contact be recorded for a lead, since POPIA applies? Default: the lead's notes, with the date and the exact wording shown.
+1. Where should consent for contact be recorded for a lead, since POPIA applies? Default: the lead's notes, with the date and the exact wording shown.
 
 ## Progress
 
+- 2026-11-27: Payment model decided (R1 at checkout, the rest due and collected on the day of service). Map decided (Maps JavaScript API with the site's `google_maps_api_key`).
 - [ ] Phase 0
 - [ ] Phase 1
 - [ ] Phase 2

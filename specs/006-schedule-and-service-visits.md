@@ -21,7 +21,7 @@ Customers see their visits in a month calendar and a list, and open any visit to
 
 | # | Decision | Choice |
 | :--- | :--- | :--- |
-| 1 | Doctype | New `Service Visit` with child `Service Visit Task` (fields in `data-model.md`). `Maintenance Visit` was rejected: no skipped or rescheduled status, no photos, no arrival and finish times |
+| 1 | Doctype | New `Service Visit` (confirmed 2026-11-27) with child `Service Visit Task` (fields in `data-model.md`). `Maintenance Visit` was rejected: no skipped or rescheduled status, no photos, no arrival and finish times |
 | 2 | Colours | Green completed, red skipped, yellow rescheduled, grey upcoming. This follows the mockup and replaces the earlier "no yellow" note |
 | 3 | Rescheduled | The original visit has status `Rescheduled` and `rescheduled_to` points to the new visit. The new visit is `Upcoming` |
 | 4 | Range | `get_visits(month)` takes `YYYY-MM`. The list view calls it for the current month and loads earlier months on request |

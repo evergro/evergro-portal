@@ -1,7 +1,7 @@
-# Rename the app to `evergro_portal`
+# Keep the app name `portal`
 
-Date: 2026-11-23
-Status: **Decision pending. Do not start.**
+Date: 2026-11-23, decided 2026-11-27
+Status: **Done. Not renamed.**
 
 ## Problem
 
@@ -11,19 +11,9 @@ The global rule gives every Evergro app the prefix `evergro_`. This app is `port
 
 | # | Decision | Choice |
 | :--- | :--- | :--- |
-| 1 | When | Later. The rename changes every import, the hooks, route rules, fixtures, method paths in the frontend (`portal.api.portal.*`) and the production install. It does nothing for customers |
-| 2 | Do it | Before a second Evergro app imports from the portal |
-
-## Phases
-
-### Phase 0: is there still a clash?
-
-- Search `evergro.local` for two modules named `portal` and check the install log for the warning. Record the answer.
-
-### Phase 1: rename plan (only if Phase 0 shows a clash or the decision changes)
-
-- List every use of `portal`: Python imports, `hooks.py`, fixtures, patches, route rules, the `config.apiPath` value in the frontend, the build output folder, and any n8n flow or email template that calls a method.
-- Back up the database and the app folder. Rename on a copy of the site first. Run all backend, Vitest and Playwright suites.
+| 1 | Rename to `evergro_portal` | No. The app stays `portal` and the repo stays `evergro/evergro-portal`. A rename changes every import, hook, fixture and method path (`portal.api.portal.*`) and does nothing for customers |
+| 2 | Global naming rule | This app is an exception, recorded in `AGENTS.md` |
+| 3 | Module clash | The app's module is `Evergro`, not `portal`, so its doctypes do not share a module name with ERPNext |
 
 ## Out of scope
 
@@ -31,4 +21,4 @@ The global rule gives every Evergro app the prefix `evergro_`. This app is `port
 
 ## Progress
 
-- [ ] Phase 0
+- 2026-11-27: Decided not to rename.

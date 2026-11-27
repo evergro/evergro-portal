@@ -21,7 +21,7 @@ The goal of every spec is the one in `AGENTS.md`: a customer sees when the crew 
 | 011 | [Notification settings](011-notification-settings.md) | `NotificationsView`, `ChannelView` | 003 | Draft |
 | 012 | [Support](012-support.md) | `SupportView` | 003 | Draft |
 | 013 | [Promo onboarding](013-promo-onboarding.md) | `/promo`, `/start/*` | all above | Nice to have. Build last |
-| 014 | [Rename app](014-rename-app.md) | none | none | Decision pending. Do not start |
+| 014 | [Keep the app name](014-rename-app.md) | none | none | Done. Not renamed |
 
 Spec 006 comes before 005 because Home reads visits.
 
@@ -52,11 +52,14 @@ Spec 006 comes before 005 because Home reads visits.
 | Pay now | Any unpaid invoice (spec 009) |
 | R1 card check | Kept and credited on the next invoice (spec 009) |
 | Customer name | Read only in the portal (spec 007) |
+| Visits | New `Service Visit` doctype, not `Maintenance Visit` (spec 006) |
+| Support numbers | From the default `Company`: `phone_no` and a new `custom_whatsapp` field (spec 012) |
+| Promo payment | R1 at checkout to save the card. The rest is due on the day of service and collected with the saved card. Subscriptions start on the next billing date, and staff invoice the first cycle by hand (spec 013) |
+| Lawn map | Google Maps JavaScript API with the site's `google_maps_api_key` (spec 013) |
+| App name | Stays `portal`, repo `evergro-portal` (spec 014) |
 
 ## Open questions across all specs
 
-1. Is the Service Visit doctype in `data-model.md` right, or should visits use `Maintenance Visit` (spec 006)?
-2. Which phone number and WhatsApp number do customers see (spec 012)?
-3. At promo checkout, is the first month paid at once or is it an R1 authorisation (spec 013)?
-4. Which map option measures the lawn (spec 013)?
-5. Is the app renamed to `evergro_portal` (spec 014)?
+1. Where is consent for contact recorded for a promo lead (spec 013, POPIA)? Default: the lead's notes, with the date and the exact wording shown.
+2. Should visits be generated from each Subscription automatically (spec 006)? Default: no.
+3. Can one login have two customers (spec 003)? Default: no.

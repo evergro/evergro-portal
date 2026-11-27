@@ -29,7 +29,7 @@ Business facts: ZAR, about 17 recurring customers, weekly maintenance billed mon
 | Bench | `~/frappe-bench` (plain bench, no Docker in dev) |
 | Dev site | `evergro.local` (v15 only for now) |
 | Repo | GitHub `evergro/evergro-portal` |
-| Frappe app / module | `portal` / `Evergro` |
+| Frappe app / module | `portal` / `Evergro`. This app keeps the name `portal` without the `evergro_` prefix (spec 014) |
 | Frontend | `apps/portal/frontend/`, Vue 3, Vite, Tailwind 3 and `frappe-ui`. Build output goes to `portal/public/portal` |
 | API | `portal.api.portal` (customers), `portal.api.promo` (guests) |
 | Specs | `specs/`. Every doctype and custom field is listed in `specs/data-model.md` |
@@ -52,7 +52,7 @@ Business facts: ZAR, about 17 recurring customers, weekly maintenance billed mon
 
 ## Related apps
 
-- `frappe_paystack`: payment pages, saved cards, charging a saved card. Its `/promo/summer-special` page is replaced by spec 013.
+- `frappe_paystack`: payment pages, saved cards, charging a saved card. The portal and it share the site config key `google_maps_api_key`. Its `/promo/summer-special` page is replaced by spec 013.
 - `evergro_core` (planned): brand tokens, the quote link page.
 - `evergro_field` (planned): the crew app. It writes `Service Visit` records.
 

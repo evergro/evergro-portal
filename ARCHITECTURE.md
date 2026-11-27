@@ -83,6 +83,7 @@ A shared doctype is used by more than one Evergro app. Each app creates it only 
 | DocType | Field | Why | Status |
 | :--- | :--- | :--- | :--- |
 | `Contact` | `custom_birthday` | No standard birthday field on Contact | Today |
+| `Company` | `custom_whatsapp` | Support WhatsApp number, next to the standard `phone_no` | Planned, 012 |
 | `Paystack Customer Authorization` | `custom_default` | Marks the one active card | Today |
 | `Customer` | `custom_referral_code` | The code a customer shares | Planned, 010 |
 | `Address` | `custom_photo`, `custom_access_notes` | Property photo and gate notes | Planned, 008 |
@@ -113,6 +114,7 @@ None.
 - The customer comes from the session. No method takes a customer argument.
 - Every record id from the client is checked against that customer, and a record that is not theirs answers "not found".
 - Customers are `Website User` accounts, so Frappe refuses them at `/app`.
+- The Google Maps browser key comes from the site config `google_maps_api_key`, never from the repo. It is restricted to the site's domains in Google Cloud.
 - The card `authorization_code` is a Password field. It is read only inside the server with `get_password` and never returned or logged.
 
 ## File tree
