@@ -1,6 +1,8 @@
-### Portal
+### Evergro Portal
 
-Customer and Employee portal for Evergro Landscapers
+The customer app for Evergro Landscapers, on Frappe/ERPNext v15. Customers log in at `/portal` to see their lawn care visits, manage their card, pay invoices and keep their details up to date. The public landing page is at `/`.
+
+Start with [`docs/index.md`](docs/index.md). Contributors and agents read [`AGENTS.md`](AGENTS.md), [`ARCHITECTURE.md`](ARCHITECTURE.md) and [`specs/`](specs/README.md).
 
 ### Installation
 
