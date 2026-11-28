@@ -118,7 +118,7 @@ home_page = "index"
 # -----------
 # Permissions evaluated in scripted ways
 website_route_rules = [
-    {"from_route": "/portal/<path:app_path>", "to_route": "portal"},
+	{"from_route": "/portal/<path:app_path>", "to_route": "portal"},
 ]
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
@@ -131,15 +131,12 @@ website_route_rules = [
 # ---------------
 # Override standard doctype classes
 fixtures = [
-    {
-        "doctype": "Custom Field",
-          "filters": [
-              ["name", "in", [
-                  "Contact-custom_birthday",
-                  "Paystack Customer Authorization-custom_default"
-              ]]
-          ]
-    }
+	{
+		"doctype": "Custom Field",
+		"filters": [
+			["name", "in", ["Contact-custom_birthday", "Paystack Customer Authorization-custom_default"]]
+		],
+	}
 ]
 # override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
@@ -258,4 +255,3 @@ fixtures = [
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-

@@ -144,6 +144,10 @@ portal/
 │   │   └── make/
 │   ├── .vscode/
 │   │   └── extensions.json
+│   ├── e2e/
+│   │   ├── access.spec.ts
+│   │   ├── helpers.ts
+│   │   └── root.spec.ts
 │   ├── public/
 │   │   └── favicon.svg
 │   ├── src/
@@ -182,13 +186,18 @@ portal/
 │   │   ├── index.css
 │   │   ├── main.ts
 │   │   └── vite-env.d.ts
+│   ├── test-results/
+│   │   └── .last-run.json
 │   ├── .claudeignore
 │   ├── .gitattributes
 │   ├── .gitignore
 │   ├── .mise.toml
+│   ├── auto-imports.d.ts
+│   ├── components.d.ts
 │   ├── index.html
 │   ├── package-lock.json
 │   ├── package.json
+│   ├── playwright.config.ts
 │   ├── pnpm-lock.yaml
 │   ├── postcss.config.js
 │   ├── README.md
@@ -223,6 +232,9 @@ portal/
 │   │   ├── pages/
 │   │   │   └── __init__.py
 │   │   └── __init__.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   └── test_routing.py
 │   ├── www/
 │   │   ├── portal/
 │   │   │   ├── index.html
@@ -234,7 +246,8 @@ portal/
 │   ├── __init__.py
 │   ├── hooks.py
 │   ├── modules.txt
-│   └── patches.txt
+│   ├── patches.txt
+│   └── routing.py
 ├── scripts/
 │   └── generate_tree.py
 ├── specs/

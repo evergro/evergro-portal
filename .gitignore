@@ -4,4 +4,7 @@
 *.swp
 tags
 node_modules
-__pycache__
+__pycache__frontend/auto-imports.d.ts
+frontend/components.d.ts
+frontend/test-results
+frontend/playwright-report

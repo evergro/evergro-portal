@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import frappeui from 'frappe-ui/vite'
 import path from 'node:path'
 
 export default defineConfig({
   base: 'portal/',
 
   plugins: [
+    frappeui({ frappeProxy: false, jinjaBootData: false, buildConfig: false }),
     vue(),
   ],
 
