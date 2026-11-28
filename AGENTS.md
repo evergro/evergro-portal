@@ -64,5 +64,6 @@ Business facts: ZAR, about 17 recurring customers, weekly maintenance billed mon
 | Build the frontend | `npm run build` in `frontend/` |
 | Type check | `npm run typecheck` in `frontend/` |
 | Lint | `ruff check .` and `ruff format --check .` |
+| End-to-end tests | `npm run test:e2e` in `frontend/` (set the `E2E_*` variables, see spec 001) |
 | Backend tests | `bench --site evergro.local run-tests --app portal` |
 | After any hook or route change | `bench --site evergro.local clear-cache && bench --site evergro.local clear-website-cache` |

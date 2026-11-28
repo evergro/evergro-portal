@@ -27,7 +27,7 @@ const logout = useCall({
   // sessionStorage.clear();
   // toast.value = "You’ve been logged out";
   // window.setTimeout(() => (toast.value = ""), 2200);
-  url: '/api/v2/method/logout',
+  url: '/api/method/logout',
   onSuccess() {
     window.location.href = '/login?redirect-to=%2Fportal/account'
   },

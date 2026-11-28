@@ -57,13 +57,7 @@ app_license = "agpl-3.0"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
-
-# website user home page (by Role)
-role_home_page = {
-	"Customer": "/portal",
-    "System Manager": "/app",
-}
+home_page = "index"
 
 # Generators
 # ----------
@@ -124,12 +118,11 @@ role_home_page = {
 # -----------
 # Permissions evaluated in scripted ways
 website_route_rules = [
-    {"from_route": "/portal/<path:app_path>", "to_route": "portal"},
+	{"from_route": "/portal/<path:app_path>", "to_route": "portal"},
 ]
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
-website_home_page = "index"
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
@@ -138,15 +131,12 @@ website_home_page = "index"
 # ---------------
 # Override standard doctype classes
 fixtures = [
-    {
-        "doctype": "Custom Field",
-          "filters": [
-              ["name", "in", [
-                  "Contact-custom_birthday",
-                  "Paystack Customer Authorization-custom_default"
-              ]]
-          ]
-    }
+	{
+		"doctype": "Custom Field",
+		"filters": [
+			["name", "in", ["Contact-custom_birthday", "Paystack Customer Authorization-custom_default"]]
+		],
+	}
 ]
 # override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
@@ -265,4 +255,3 @@ fixtures = [
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-

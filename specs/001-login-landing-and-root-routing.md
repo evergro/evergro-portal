@@ -1,7 +1,7 @@
 # Login, landing and root routing
 
 Date: 2026-11-23, changed 2026-11-27
-Status: **Draft.**
+Status: **Done on evergro.local.**
 
 ## Problem
 
@@ -125,10 +125,15 @@ None.
 ## Progress
 
 - 2026-11-27: Goal changed. `/` stays the landing page for everyone (it is on the main website and on Google), and `/home` is dropped. Cause re-read from the code: `role_home_page` sends logged-in users away from `/`.
-- [ ] Phase 0
-- [ ] Phase 1
-- [ ] Phase 2
-- [ ] Phase 3
-- [ ] Phase 4
-- [ ] Phase 5
-- [ ] Phase 6
+- [x] Phase 0
+- [x] Phase 1
+- [x] Phase 2
+- [x] Phase 3
+- [x] Phase 4
+- [x] Phase 5
+- [x] Phase 6
+- 2026-11-28: Phases 0 to 6 built. Cause confirmed, plus leftovers from the deleted Helpdesk app: `Portal Settings` had `default_portal_home = /helpdesk` and `default_role = HD Customer`, and the roles `HD Customer` and `HD Customer Manager` had `home_page = /helpdesk`. The two roles were deleted and the two settings emptied on evergro.local. The `Agent` and `Agent Manager` roles are also Helpdesk leftovers and were not touched.
+- Checked with curl and a temporary customer (since deleted): guest `/` shows **Log in**, customer `/` shows **View dashboard** to `/portal`, `/login` sends a customer to `/portal`, `/app` answers 403, a guest at `/portal/schedule` goes to `/login?redirect-to=/portal/schedule`. Not done: Playwright specs (no Playwright in `frontend/`), a staff-user check and Phase 4 data listing. `agent-browser` could not be installed because there is no network.
+- 2026-11-28 (later): Added Playwright (`frontend/e2e/root.spec.ts`, `access.spec.ts`, 7 tests, all pass on evergro.local with temporary customer and staff users, since deleted). Accounts come from `E2E_CUSTOMER_EMAIL`, `E2E_CUSTOMER_PASSWORD`, `E2E_STAFF_EMAIL`, `E2E_STAFF_PASSWORD`. Tests that need an account skip when they are not set. Run with `npm run test:e2e` in `frontend/`. Not covered: Phase 4 data listing, disabled-user login and logout from the portal.
+- Build and dev were broken because `package.json` asked for Tailwind 4 while the config, `frappe-ui` 0.1.278 and spec 002 use Tailwind 3. Fixed by pinning Tailwind 3, adding `autoprefixer` and `postcss`, listing the `frappe-ui` content path directly (this version no longer exports `content`) and adding the `frappe-ui/vite` icons plugin.
+- Dev server rendered a blank page because `frappe-ui` ships source, so Vite did not pre-bundle `feather-icons` and `debug`. Fixed with `optimizeDeps.include`. `base` is now `/` in dev and `/assets/portal/portal/` in a build, as spec 002 says. Checked in a browser: `localhost:8080/portal/` and the built `evergro.local:8000/portal` and `/portal/schedule` render with no console errors.

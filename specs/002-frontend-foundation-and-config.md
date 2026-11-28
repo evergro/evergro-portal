@@ -29,7 +29,7 @@ Status: **Draft.** Changed 2026-11-27 (Tailwind 3 and `frappe-ui` components). E
 | 1 | What to use from `frappe-ui` | Data: `createResource`, `createListResource`, `call`, `setConfig`, `frappeRequest`. UI: Tailwind 3 with the `frappe-ui` preset and `style.css`. Use a `frappe-ui` component when we have none for the job, or when it does more than ours, fits the Evergro theme and makes the layout easier |
 | 2 | Where data lives | One composable for each kind of data in `src/data/`. Views bind to the resource (`data`, `loading`, `error`, `reload`) and never call `fetch` |
 | 3 | Mock vs real | One flag, `VITE_USE_MOCK_API`. `src/services/api.ts` exports each function from the real composable, or from the mock while a screen is not migrated. The flag is `false` in `.env.development` and `.env.production` |
-| 4 | Build output | Vite builds to `portal/public/portal`. Assets are served by Frappe at `/assets/portal/portal/`. The built `index.html` is copied to `portal/www/portal.html` so Frappe can render it as a template |
+| 4 | Build output | Vite builds to `portal/public/portal`. Assets are served by Frappe at `/assets/portal/portal/`. The built `index.html` is copied to `portal/www/portal/index.html` so Frappe can render it as a template |
 | 5 | CSRF and boot data | `www/portal.py` puts `csrf_token` in `context.boot`. The `frappe-ui/vite` plugin turns that into `window.csrf_token` in the built page. In dev, `main.ts` fetches the same values from a developer-mode-only method |
 | 6 | One SPA host page for three prefixes | Route rules send `/portal/*`, `/promo/*` and `/start/*` to the page `portal`. Only `/portal/*` requires login |
 | 7 | Base URL | `/assets/portal/portal/` in a build, `/` in dev |

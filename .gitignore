@@ -5,3 +5,7 @@
 tags
 node_modules
 __pycache__
+frontend/auto-imports.d.ts
+frontend/components.d.ts
+frontend/test-results
+frontend/playwright-report

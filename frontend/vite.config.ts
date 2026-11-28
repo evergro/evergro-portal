@@ -1,13 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import frappeui from 'frappe-ui/vite'
 import path from 'node:path'
 
-export default defineConfig({
-  base: 'portal/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/assets/portal/portal/' : '/',
 
   plugins: [
+    frappeui({ frappeProxy: false, jinjaBootData: false, buildConfig: false }),
     vue(),
   ],
+
+  optimizeDeps: {
+    // frappe-ui ships source, so Vite does not pre-bundle its CommonJS dependencies by itself
+    include: ['frappe-ui > feather-icons', 'frappe-ui > debug'],
+  },
 
   resolve: {
     alias: {
@@ -50,4 +57,4 @@ export default defineConfig({
     target: 'es2015',
     manifest: true,
   },
-})
+}))
