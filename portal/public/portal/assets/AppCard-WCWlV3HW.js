@@ -1,1 +1,0 @@
-import{E as e,h as t,k as n,mt as r,u as i}from"./AppIcon-DC8Kk6Ke.js";var a=t({__name:`AppCard`,props:{padded:{type:Boolean,default:!0}},setup(t){return(a,o)=>(e(),i(`section`,{class:r([`card-shadow rounded-3xl border border-primary/6 bg-white`,{"p-5 md:p-6":t.padded}])},[n(a.$slots,`default`)],2))}});export{a as t};
