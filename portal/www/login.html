@@ -280,9 +280,8 @@ form.addEventListener('submit', async (e) => {
       throw new Error(data.message || 'Invalid email or password.');
     }
 
-    const data = await res.json();
     const redirectTo = getParam('redirect-to');
-    window.location.href = redirectTo || data.home_page || '/';
+    window.location.href = redirectTo || '/login';
 
   } catch (err) {
     showError(err.message || 'Something went wrong. Please try again.');

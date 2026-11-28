@@ -57,13 +57,7 @@ app_license = "agpl-3.0"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
-
-# website user home page (by Role)
-role_home_page = {
-	"Customer": "/portal",
-    "System Manager": "/app",
-}
+home_page = "index"
 
 # Generators
 # ----------
@@ -129,7 +123,6 @@ website_route_rules = [
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
-website_home_page = "index"
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }

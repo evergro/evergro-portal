@@ -1,7 +1,7 @@
 # Login, landing and root routing
 
 Date: 2026-11-23, changed 2026-11-27
-Status: **Draft.**
+Status: **Done on evergro.local (no Playwright specs yet).**
 
 ## Problem
 
@@ -125,10 +125,12 @@ None.
 ## Progress
 
 - 2026-11-27: Goal changed. `/` stays the landing page for everyone (it is on the main website and on Google), and `/home` is dropped. Cause re-read from the code: `role_home_page` sends logged-in users away from `/`.
-- [ ] Phase 0
-- [ ] Phase 1
-- [ ] Phase 2
-- [ ] Phase 3
-- [ ] Phase 4
-- [ ] Phase 5
-- [ ] Phase 6
+- [x] Phase 0
+- [x] Phase 1
+- [x] Phase 2
+- [x] Phase 3
+- [x] Phase 4
+- [x] Phase 5
+- [x] Phase 6
+- 2026-11-28: Phases 0 to 6 built. Cause confirmed, plus leftovers from the deleted Helpdesk app: `Portal Settings` had `default_portal_home = /helpdesk` and `default_role = HD Customer`, and the roles `HD Customer` and `HD Customer Manager` had `home_page = /helpdesk`. The two roles were deleted and the two settings emptied on evergro.local. The `Agent` and `Agent Manager` roles are also Helpdesk leftovers and were not touched.
+- Checked with curl and a temporary customer (since deleted): guest `/` shows **Log in**, customer `/` shows **View dashboard** to `/portal`, `/login` sends a customer to `/portal`, `/app` answers 403, a guest at `/portal/schedule` goes to `/login?redirect-to=/portal/schedule`. Not done: Playwright specs (no Playwright in `frontend/`), a staff-user check and Phase 4 data listing. `agent-browser` could not be installed because there is no network.

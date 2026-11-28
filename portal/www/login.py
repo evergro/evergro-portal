@@ -1,10 +1,13 @@
 import frappe
 
-def get_context(context):
-    if frappe.session.user != "Guest":
-        # already logged in — let role_home_page decide where they land
-        frappe.local.flags.redirect_location = "/"
-        raise frappe.Redirect
+from portal.routing import get_dashboard_url
 
-    context.no_cache = 1
-    context.title = "Sign In | Evergro Landscapers"
+no_cache = 1
+
+
+def get_context(context):
+	if frappe.session.user != "Guest":
+		frappe.local.flags.redirect_location = get_dashboard_url(frappe.session.user)
+		raise frappe.Redirect
+
+	context.title = "Sign In | Evergro Landscapers"

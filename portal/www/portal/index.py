@@ -6,7 +6,7 @@ no_cache = 1
 
 def get_context(context):
     if frappe.session.user == "Guest":
-        frappe.local.flags.redirect_location = "/login"
+        frappe.local.flags.redirect_location = f"/login?redirect-to={frappe.local.request.path}"
         raise frappe.Redirect
 
     context.no_cache = 1
