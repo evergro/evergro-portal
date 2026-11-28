@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import AppCard from "@/components/AppCard.vue";
 import AppIcon from "@/components/AppIcon.vue";
 import StatusBadge from "@/components/StatusBadge.vue";
-import { getTransactions } from "@/services/mockApi";
+import { getTransactions } from "@/services/api";
 import type { Transaction } from "@/types";
 const transactions = ref<Transaction[]>([]);
 onMounted(async () => (transactions.value = await getTransactions()));

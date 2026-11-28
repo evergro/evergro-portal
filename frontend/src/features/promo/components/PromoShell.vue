@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getSupport } from "@/services/mockApi";
+import { getSupport } from "@/services/api";
 import EvergroLogo from "./EvergroLogo.vue";
 
 defineProps<{ dark?: boolean; step?: number; steps?: number; appOnMobile?: boolean }>();

@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import AppCard from "@/components/AppCard.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
-import { getActiveCard } from "@/services/mockApi";
+import { getActiveCard } from "@/services/api";
 import type { PaymentCard } from "@/types";
 import PaymentCardDisplay from "./PaymentCardDisplay.vue";
 

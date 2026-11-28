@@ -4,7 +4,7 @@ import AppCard from "@/components/AppCard.vue";
 import AppIcon from "@/components/AppIcon.vue";
 import ThumbPage from "@/components/ThumbPage.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
-import { getReferral } from "@/services/mockApi";
+import { getReferral } from "@/services/api";
 import type { ReferralSummary } from "@/types";
 
 const referral = ref<ReferralSummary>();

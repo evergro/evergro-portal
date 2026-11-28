@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppButton from "@/components/AppButton.vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getMapConfig } from "@/services/promoApi";
+import { getMapConfig } from "@/services/api";
 import PromoShell from "./components/PromoShell.vue";
 import { usePromoFlow } from "./usePromoFlow";
 

@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import AppCard from "@/components/AppCard.vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getProperty } from "@/services/mockApi";
+import { getProperty } from "@/services/api";
 import type { Property } from "@/types";
 const route = useRoute();
 const property = ref<Property>();

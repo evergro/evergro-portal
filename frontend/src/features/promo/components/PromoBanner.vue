@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getActivePromo } from "@/services/promoApi";
+import { getActivePromo } from "@/services/api";
 import type { Campaign } from "@/types";
 
 const promo = ref<Campaign>();

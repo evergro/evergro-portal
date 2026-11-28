@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppIcon from "@/components/AppIcon.vue";
-import { getGuideQuestions, getHouseLayouts, getPricing } from "@/services/promoApi";
+import { getGuideQuestions, getHouseLayouts, getPricing } from "@/services/api";
 import type { GuideQuestion, HouseLayout, PricingTier, ZoneId } from "@/types";
 import GuideShell from "./components/GuideShell.vue";
 import PlotDiagram from "./components/PlotDiagram.vue";

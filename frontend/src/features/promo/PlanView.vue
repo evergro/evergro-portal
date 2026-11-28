@@ -2,7 +2,7 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppIcon from "@/components/AppIcon.vue";
-import { getCampaign, recommendPlans } from "@/services/promoApi";
+import { getCampaign, recommendPlans } from "@/services/api";
 import type { Campaign, PlanRecommendation } from "@/types";
 import AnimatedPrice from "./components/AnimatedPrice.vue";
 import GuideShell from "./components/GuideShell.vue";

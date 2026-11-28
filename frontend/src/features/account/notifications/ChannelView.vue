@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 import AppCard from "@/components/AppCard.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
 import ToggleSwitch from "@/components/ToggleSwitch.vue";
-import { getNotificationSettings, saveNotificationSettings } from "@/services/mockApi";
+import { getNotificationSettings, saveNotificationSettings } from "@/services/api";
 import type { NotificationSettings } from "@/types";
 defineProps<{ channel: string }>();
 const settings = ref<NotificationSettings>();

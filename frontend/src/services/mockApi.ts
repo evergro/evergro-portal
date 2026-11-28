@@ -21,6 +21,7 @@ const customer: Customer = {
   birthday: "2001-12-18",
   since: "March 2022",
   avatar: "NM",
+  image: null,
 }
 
 const visits: Visit[] = [

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getSupport } from "@/services/mockApi";
+import { getSupport } from "@/services/api";
 
 const support = ref({ phone: "", whatsapp: "" });
 onMounted(async () => (support.value = await getSupport()));

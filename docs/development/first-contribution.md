@@ -25,6 +25,8 @@ How a change goes from an idea to a commit in this repo. Every change follows a 
 | Python lint | `ruff check .` and `ruff format --check .` |
 | Backend tests | `bench --site evergro.local run-tests --app portal` |
 | Type check | `npm run typecheck` in `frontend/` |
+| Component tests | `npm test` in `frontend/` |
+| Browser tests | `npm run test:e2e` in `frontend/` (see [Run it locally](run-locally.md#5-run-the-tests)) |
 | Build | `npm run build` in `frontend/` |
 
 4. Check the change by hand in the built app, as the spec's hand check says.

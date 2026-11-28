@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getMemberPromos } from "@/services/promoApi";
+import { getMemberPromos } from "@/services/api";
 import type { MemberPromo } from "@/types";
 
 const emit = defineEmits<{ claimed: [message: string] }>();

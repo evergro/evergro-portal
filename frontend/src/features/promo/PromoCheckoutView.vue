@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppIcon from "@/components/AppIcon.vue";
-import { createAccount, getCampaign, recommendPlans, startSubscription } from "@/services/promoApi";
+import { createAccount, getCampaign, recommendPlans, startSubscription } from "@/services/api";
 import type { Campaign, PlanOffer } from "@/types";
 import GuideShell from "./components/GuideShell.vue";
 import { usePromoFlow } from "./usePromoFlow";

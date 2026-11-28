@@ -80,6 +80,7 @@ export interface Customer {
   birthday: string;
   since: string;
   avatar: string;
+  image: string | null;
 }
 
 export interface Referral {

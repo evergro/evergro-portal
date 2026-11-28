@@ -4,9 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Evergro Portal</title>
+<link rel="icon" type="image/svg+xml" href="/assets/portal/portal/favicon.svg">
 {% for css in css_files %}
 <link rel="stylesheet" href="/assets/portal/portal/{{ css }}">
 {% endfor %}
+<script>
+{% for key in boot %}window["{{ key }}"] = {{ boot[key] | tojson }};
+{% endfor %}
+</script>
 </head>
 <body>
 <div id="root"></div>

@@ -30,7 +30,7 @@ Business facts: ZAR, about 17 recurring customers, weekly maintenance billed mon
 | Dev site | `evergro.local` (v15 only for now) |
 | Repo | GitHub `evergro/evergro-portal` |
 | Frappe app / module | `portal` / `Evergro`. This app keeps the name `portal` without the `evergro_` prefix (spec 014) |
-| Frontend | `apps/portal/frontend/`, Vue 3, Vite, Tailwind 3 and `frappe-ui`. Build output goes to `portal/public/portal` |
+| Frontend | `apps/portal/frontend/`, Vue 3, Vite, Tailwind 3 and `frappe-ui`. Build output goes to `portal/public/portal`, which git ignores, so build after every clone and deploy |
 | API | `portal.api.portal` (customers), `portal.api.promo` (guests) |
 | Specs | `specs/`. Every doctype and custom field is listed in `specs/data-model.md` |
 | Docs | `docs/`, written by the rules in `DOCS.md` |
@@ -64,6 +64,7 @@ Business facts: ZAR, about 17 recurring customers, weekly maintenance billed mon
 | Build the frontend | `npm run build` in `frontend/` |
 | Type check | `npm run typecheck` in `frontend/` |
 | Lint | `ruff check .` and `ruff format --check .` |
+| Frontend unit tests | `npm test` in `frontend/` |
 | End-to-end tests | `npm run test:e2e` in `frontend/` (set the `E2E_*` variables, see spec 001) |
 | Backend tests | `bench --site evergro.local run-tests --app portal` |
 | After any hook or route change | `bench --site evergro.local clear-cache && bench --site evergro.local clear-website-cache` |

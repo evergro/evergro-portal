@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppButton from "@/components/AppButton.vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getHouseLayouts } from "@/services/promoApi";
+import { getHouseLayouts } from "@/services/api";
 import type { HouseLayout } from "@/types";
 import PlotDiagram from "./components/PlotDiagram.vue";
 import PromoShell from "./components/PromoShell.vue";

@@ -8,8 +8,8 @@ The goal of every spec is the one in `AGENTS.md`: a customer sees when the crew 
 
 | # | Spec | Mockup screens | Needs | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| 001 | [Login, landing and root routing](001-login-landing-and-root-routing.md) | `/`, `/login` | none | Draft |
-| 002 | [Frontend foundation and config](002-frontend-foundation-and-config.md) | whole app | 001 | Draft |
+| 001 | [Login, landing and root routing](001-login-landing-and-root-routing.md) | `/`, `/login` | none | Done |
+| 002 | [Frontend foundation and config](002-frontend-foundation-and-config.md) | whole app | 001 | Done |
 | 003 | [Customer API and security](003-customer-api-and-security.md) | whole app | 002 | Draft |
 | 004 | [App shell and navigation](004-app-shell-and-navigation.md) | shell, header, tabs | 003 | Draft |
 | 006 | [Schedule and service visits](006-schedule-and-service-visits.md) | `ScheduleView`, `VisitDetailView` | 003 | Draft |

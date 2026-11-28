@@ -1,4 +1,5 @@
 import os
+from urllib.parse import quote
 
 import frappe
 
@@ -43,18 +44,34 @@ def _get_customer():
 	return customer, contact_name
 
 
+def _get_initials(full_name):
+	return "".join(word[0] for word in full_name.split()[:2]).upper()
+
+
 @frappe.whitelist()
 def get_profile():
 	customer, contact_name = _get_customer()
 	contact = frappe.get_doc("Contact", contact_name)
+	full_name = f"{contact.first_name} {contact.last_name or ''}".strip()
+	birthday = contact.get("custom_birthday")
+	since = frappe.db.get_value("Customer", customer, "creation")
 	return {
-		"full_name": f"{contact.first_name} {contact.last_name or ''}".strip(),
+		"name": full_name,
 		"email": frappe.session.user,
-		"phone": contact.mobile_no or contact.phone,
-		"birthday": contact.get("custom_birthday"),
-		"customer_since": frappe.db.get_value("Customer", customer, "creation"),
-		"has_image": bool(contact.image),
+		"phone": contact.mobile_no or contact.phone or "",
+		"birthday": str(birthday) if birthday else "",
+		"since": since.strftime("%B %Y"),
+		"avatar": _get_initials(full_name),
+		"image": _get_contact_image_url(contact),
 	}
+
+
+def _get_contact_image_url(contact):
+	if not contact.image:
+		return None
+	if not contact.image.startswith("/private/files/"):
+		return contact.image
+	return f"/api/method/portal.api.portal.get_private_image?doctype=Contact&name={quote(contact.name)}"
 
 
 @frappe.whitelist()

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import AppCard from "@/components/AppCard.vue";
-import { getVisits } from "@/services/mockApi";
+import { getVisits } from "@/services/api";
 import type { Visit, VisitStatus } from "@/types";
 import VisitCard from "./VisitCard.vue";
 

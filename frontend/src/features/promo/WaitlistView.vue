@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { joinWaitlist } from "@/services/promoApi";
+import { joinWaitlist } from "@/services/api";
 import PromoShell from "./components/PromoShell.vue";
 import { usePromoFlow } from "./usePromoFlow";
 

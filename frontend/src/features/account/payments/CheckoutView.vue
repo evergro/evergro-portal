@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import AppButton from "@/components/AppButton.vue";
 import AppCard from "@/components/AppCard.vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getCheckoutOrder, payCheckoutOrder } from "@/services/mockApi";
+import { getCheckoutOrder, payCheckoutOrder } from "@/services/api";
 import type { CheckoutOrder, Customer } from "@/types";
 
 type CardChoice = "saved" | "new";

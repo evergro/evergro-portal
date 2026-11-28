@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import frappeui from 'frappe-ui/vite'
@@ -7,52 +8,31 @@ export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/assets/portal/portal/' : '/',
 
   plugins: [
-    frappeui({ frappeProxy: false, jinjaBootData: false, buildConfig: false }),
+    // The page is rendered by Jinja (portal/www/portal), so the plugin must not rewrite index.html or the build output.
+    frappeui({ frontendRoute: '/portal', jinjaBootData: false, buildConfig: false }),
     vue(),
   ],
 
-  optimizeDeps: {
-    // frappe-ui ships source, so Vite does not pre-bundle its CommonJS dependencies by itself
-    include: ['frappe-ui > feather-icons', 'frappe-ui > debug'],
-  },
-
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(import.meta.dirname, './src'),
     },
   },
 
-   server: {
+  server: {
     host: '0.0.0.0',
     port: 8080,
     strictPort: true,
-    cors: false,
-    hmr: {
-      protocol: 'ws',
-      host: 'evergro.local',
-      port: 8080,
-    },
-    proxy: {
-      // Catch Frappe API, method calls, and standard auth endpoints
-      '^/(api|login|logout|app)': {
-        target: 'http://127.0.0.1:8000', // Using 127.0.0.1 helps avoid localhost cookie mismatches
-        changeOrigin: true,
-        secure: false,
-        // Crucial fix: Forward cookies from your browser down to Frappe
-        configure: (proxy, _options) => {
-          proxy.on('proxyReq', (proxyReq, req, _res) => {
-            // Ensures the session cookie is correctly sent to Frappe
-            if (req.headers.cookie) {
-              proxyReq.setHeader('cookie', req.headers.cookie);
-            }
-          });
-        },
-      },
-    },
+    allowedHosts: ['evergro.local'],
+  },
+
+  test: {
+    environment: 'jsdom',
+    include: ['src/**/*.test.ts'],
   },
 
   build: {
-    outDir: path.resolve(__dirname, '../portal/public/portal'),
+    outDir: path.resolve(import.meta.dirname, '../portal/public/portal'),
     emptyOutDir: true,
     target: 'es2015',
     manifest: true,

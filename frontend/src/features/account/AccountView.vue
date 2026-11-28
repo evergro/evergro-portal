@@ -5,11 +5,13 @@ import AppCard from "@/components/AppCard.vue";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import ListRow from "@/components/ListRow.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
-import { getCustomer } from "@/services/mockApi";
+import { useProfile } from "@/data/useProfile";
+import AsyncState from "@/components/AsyncState.vue";
+import UserAvatar from "@/components/UserAvatar.vue";
 import type { Customer } from "@/types";
-import { useCall } from 'frappe-ui';
+import { logout } from "@/config/session";
 
-const customer = ref<Customer>();
+const customer = useProfile();
 const confirmOpen = ref(false);
 const toast = ref("");
 const rows = [
@@ -21,36 +23,26 @@ const rows = [
   { label: "Notification Settings", icon: "bell", to: "/portal/account/notifications" },
 ];
 
-onMounted(async () => (customer.value = await getCustomer()));
-const logout = useCall({
-  // confirmOpen.value = false;
-  // sessionStorage.clear();
-  // toast.value = "You’ve been logged out";
-  // window.setTimeout(() => (toast.value = ""), 2200);
-  url: '/api/method/logout',
-  onSuccess() {
-    window.location.href = '/login?redirect-to=%2Fportal/account'
-  },
-  immediate: false,
-})
 </script>
 
 <template>
   <ThumbPage max-width="max-w-3xl">
     <template #top>
-    <div v-if="customer" class="flex items-center gap-4">
-      <span class="grid size-20 place-items-center rounded-3xl bg-primary text-xl font-black text-white shadow-lg shadow-primary/15">{{ customer.avatar }}</span>
-      <div>
-        <h1 class="text-2xl font-black tracking-tight text-primary md:text-3xl">{{ customer.name }}</h1>
-        <p class="mt-1 text-sm text-stone-500">Evergro customer since {{ customer.since }}</p>
+    <AsyncState :resource="customer">
+      <div v-if="customer.data" class="flex items-center gap-4">
+        <UserAvatar :avatar="customer.data.avatar" :image="customer.data.image" class="size-20 rounded-3xl text-xl font-black shadow-lg shadow-primary/15" />
+        <div>
+          <h1 class="text-2xl font-black tracking-tight text-primary md:text-3xl">{{ customer.data.name }}</h1>
+          <p class="mt-1 text-sm text-stone-500">Evergro customer since {{ customer.data.since }}</p>
+        </div>
       </div>
-    </div>
+    </AsyncState>
     </template>
     <AppCard class="!py-1">
       <ListRow v-for="row in rows" :key="row.to" v-bind="row" />
       <div class="md:hidden"><ListRow label="Log out" icon="logout" danger @click="confirmOpen = true" /></div>
     </AppCard>
-    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout.submit()" />
+    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout" />
     <ToastMessage :message="toast" />
   </ThumbPage>
 </template>

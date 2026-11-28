@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import AppCard from "@/components/AppCard.vue";
 import AppIcon from "@/components/AppIcon.vue";
 import BeforeAfter from "@/components/BeforeAfter.vue";
-import { getVisit } from "@/services/mockApi";
+import { getVisit } from "@/services/api";
 import type { Visit } from "@/types";
 
 const route = useRoute();

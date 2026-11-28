@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import AppIcon from "@/components/AppIcon.vue";
-import { getProperties } from "@/services/mockApi";
+import { getProperties } from "@/services/api";
 import type { Property } from "@/types";
 const properties = ref<Property[]>([]);
 onMounted(async () => (properties.value = await getProperties()));

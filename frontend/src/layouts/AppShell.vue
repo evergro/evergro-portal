@@ -7,7 +7,7 @@ import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import PageHeader from "@/components/PageHeader.vue";
 import SideNav from "@/components/SideNav.vue";
 import ToastMessage from "@/components/ToastMessage.vue";
-import { useCall } from 'frappe-ui';
+import { logout } from "@/config/session";
 
 const route = useRoute();
 const router = useRouter();
@@ -22,17 +22,6 @@ function claimed(message: string) {
   window.setTimeout(() => (toast.value = ""), 2600);
 }
 
-const logout = useCall({
-  // confirmOpen.value = false;
-  // sessionStorage.clear();
-  // toast.value = "You’ve been logged out";
-  // window.setTimeout(() => (toast.value = ""), 2200);
-  url: '/api/method/logout',
-  onSuccess() {
-    window.location.href = '/login?redirect-to=%2Fportal'
-  },
-  immediate: false,
-})
 </script>
 
 <template>
@@ -48,7 +37,7 @@ const logout = useCall({
       <router-view />
     </main>
     <BottomTabBar v-if="showTabs" />
-    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout.submit()" />
+    <ConfirmDialog :open="confirmOpen" @close="confirmOpen = false" @confirm="logout" />
     <MemberPromoPopup v-if="route.path === '/portal'" @claimed="claimed" />
     <ToastMessage :message="toast" />
   </div>

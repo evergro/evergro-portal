@@ -19,7 +19,7 @@ The portal has two parts: Jinja pages that Frappe renders on the server, and a V
 2. Frappe matches the route rule in `portal/hooks.py` and renders `portal/www/portal/index.html`.
 3. The page loads the built script from `/assets/portal/portal/`.
 4. Vue Router shows the screen for `/portal/schedule`.
-5. The screen asks for its data. **Today** it reads sample data from `frontend/src/services/mockApi.ts`. **Planned** ([spec 002](../../specs/002-frontend-foundation-and-config.md)): a composable in `frontend/src/data/` calls `portal.api.portal` through `createResource`.
+5. The screen asks for its data. **Today** the customer's name and photo come from `portal.api.portal.get_profile`, through the composable `useProfile` in `frontend/src/data/` and `createResource`. Every other screen still reads sample data from `frontend/src/services/mockApi.ts` until its own spec ([005](../../specs/005-home.md) to [013](../../specs/013-promo-onboarding.md)) moves it to a composable.
 6. The API method works out the customer from the session, reads ERPNext records and returns the shape in `frontend/src/types/index.ts`.
 
 > **Warning:** Never take the customer from the browser. A method that accepts a customer name lets anyone read anyone's data.

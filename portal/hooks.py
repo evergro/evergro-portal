@@ -119,6 +119,9 @@ home_page = "index"
 # Permissions evaluated in scripted ways
 website_route_rules = [
 	{"from_route": "/portal/<path:app_path>", "to_route": "portal"},
+	{"from_route": "/start/<path:app_path>", "to_route": "portal"},
+	# Only the bare /promo, because frappe_paystack serves /promo/summer-special until spec 013
+	{"from_route": "/promo", "to_route": "portal"},
 ]
 # permission_query_conditions = {
 # 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",

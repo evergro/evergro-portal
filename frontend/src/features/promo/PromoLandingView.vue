@@ -2,8 +2,8 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import AppIcon from "@/components/AppIcon.vue";
-import { getSupport } from "@/services/mockApi";
-import { classifyAddress, getCampaign, getFaqs, getHowItWorks, getIntroSlides, getPricing } from "@/services/promoApi";
+import { getSupport } from "@/services/api";
+import { classifyAddress, getCampaign, getFaqs, getHowItWorks, getIntroSlides, getPricing } from "@/services/api";
 import type { Campaign, FaqItem, IntroSlide, PricingBundle, PromoStep } from "@/types";
 import PromoShell from "./components/PromoShell.vue";
 import { usePromoFlow } from "./usePromoFlow";

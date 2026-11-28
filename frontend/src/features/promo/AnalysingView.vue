@@ -2,7 +2,7 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppIcon from "@/components/AppIcon.vue";
-import { getAnalysisSteps, submitQuoteRequest } from "@/services/promoApi";
+import { getAnalysisSteps, submitQuoteRequest } from "@/services/api";
 import type { PromoStep } from "@/types";
 import PromoShell from "./components/PromoShell.vue";
 import { usePromoFlow } from "./usePromoFlow";

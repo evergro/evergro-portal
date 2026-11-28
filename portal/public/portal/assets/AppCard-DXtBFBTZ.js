@@ -1,1 +1,0 @@
-import{Zn as e,b as t,k as n,mt as r,xt as i}from"./runtime-core.esm-bundler-BEEDkweu.js";var a=n({__name:`AppCard`,props:{padded:{type:Boolean,default:!0}},setup(n){return(a,o)=>(r(),t(`section`,{class:e([`card-shadow rounded-3xl border border-primary/6 bg-white`,{"p-5 md:p-6":n.padded}])},[i(a.$slots,`default`)],2))}});export{a as t};

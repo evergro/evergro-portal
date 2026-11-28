@@ -6,10 +6,13 @@ import AppIcon from "@/components/AppIcon.vue";
 import BeforeAfter from "@/components/BeforeAfter.vue";
 import PromoBanner from "@/features/promo/components/PromoBanner.vue";
 import StatusBadge from "@/components/StatusBadge.vue";
-import { getCustomer, getLastVisit, getNextVisit } from "@/services/mockApi";
+import { getLastVisit, getNextVisit } from "@/services/api";
+import { useProfile } from "@/data/useProfile";
+import AsyncState from "@/components/AsyncState.vue";
+import UserAvatar from "@/components/UserAvatar.vue";
 import type { Customer, Visit } from "@/types";
 
-const customer = ref<Customer>();
+const customer = useProfile();
 const nextVisit = ref<Visit>();
 const lastVisit = ref<Visit>();
 // Set by the onboarding success page for brand-new members.
@@ -27,8 +30,7 @@ function dismissWelcome() {
 }
 
 onMounted(async () => {
-  [customer.value, nextVisit.value, lastVisit.value] = await Promise.all([
-    getCustomer(),
+  [nextVisit.value, lastVisit.value] = await Promise.all([
     getNextVisit(),
     getLastVisit(),
   ]);
@@ -37,13 +39,15 @@ onMounted(async () => {
 
 <template>
   <div class="mx-auto max-w-6xl px-4 pt-8 md:px-8 md:pt-10">
-    <div v-if="customer" class="mb-7 flex items-center justify-between">
-      <div>
-        <p class="text-sm font-bold text-primary/50">Good morning</p>
-        <h1 class="mt-1 text-3xl font-black tracking-tight text-primary md:text-4xl">Hi {{ customer.name.split(" ")[0] }}</h1>
+    <AsyncState :resource="customer">
+      <div v-if="customer.data" class="mb-7 flex items-center justify-between">
+        <div>
+          <p class="text-sm font-bold text-primary/50">Good morning</p>
+          <h1 class="mt-1 text-3xl font-black tracking-tight text-primary md:text-4xl">Hi {{ customer.data.name.split(" ")[0] }}</h1>
+        </div>
+        <UserAvatar :avatar="customer.data.avatar" :image="customer.data.image" class="size-12 rounded-full text-sm md:hidden" />
       </div>
-      <span class="grid size-12 place-items-center rounded-full bg-primary text-sm font-bold text-white md:hidden">{{ customer.avatar }}</span>
-    </div>
+    </AsyncState>
 
     <AppCard v-if="newMember" class="mb-5 !border-0 !bg-primary text-white">
       <div class="flex items-start justify-between gap-3">

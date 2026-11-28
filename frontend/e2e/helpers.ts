@@ -1,11 +1,12 @@
 import { type Page } from '@playwright/test'
 
-export type Account = { email: string; password: string }
+export type Account = { email: string; password: string; name?: string }
 
 // Credentials come from the environment so no password is stored in the repo.
 export const customer: Account = {
   email: process.env.E2E_CUSTOMER_EMAIL ?? '',
   password: process.env.E2E_CUSTOMER_PASSWORD ?? '',
+  name: process.env.E2E_CUSTOMER_NAME ?? '',
 }
 export const staff: Account = {
   email: process.env.E2E_STAFF_EMAIL ?? '',

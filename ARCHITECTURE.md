@@ -146,8 +146,10 @@ portal/
 │   │   └── extensions.json
 │   ├── e2e/
 │   │   ├── access.spec.ts
+│   │   ├── foundation.spec.ts
 │   │   ├── helpers.ts
-│   │   └── root.spec.ts
+│   │   ├── root.spec.ts
+│   │   └── session.spec.ts
 │   ├── public/
 │   │   └── favicon.svg
 │   ├── src/
@@ -155,6 +157,8 @@ portal/
 │   │   │   ├── AppButton.vue
 │   │   │   ├── AppCard.vue
 │   │   │   ├── AppIcon.vue
+│   │   │   ├── AsyncState.test.ts
+│   │   │   ├── AsyncState.vue
 │   │   │   ├── BeforeAfter.vue
 │   │   │   ├── BottomTabBar.vue
 │   │   │   ├── ConfirmDialog.vue
@@ -164,9 +168,15 @@ portal/
 │   │   │   ├── StatusBadge.vue
 │   │   │   ├── ThumbPage.vue
 │   │   │   ├── ToastMessage.vue
-│   │   │   └── ToggleSwitch.vue
+│   │   │   ├── ToggleSwitch.vue
+│   │   │   └── UserAvatar.vue
 │   │   ├── config/
-│   │   │   └── navigation.ts
+│   │   │   ├── boot.ts
+│   │   │   ├── env.ts
+│   │   │   ├── navigation.ts
+│   │   │   └── session.ts
+│   │   ├── data/
+│   │   │   └── useProfile.ts
 │   │   ├── features/
 │   │   │   ├── account/
 │   │   │   ├── home/
@@ -178,7 +188,9 @@ portal/
 │   │   ├── router/
 │   │   │   └── index.ts
 │   │   ├── services/
+│   │   │   ├── api.ts
 │   │   │   ├── mockApi.ts
+│   │   │   ├── noMockImports.test.ts
 │   │   │   └── promoApi.ts
 │   │   ├── types/
 │   │   │   └── index.ts
@@ -189,6 +201,8 @@ portal/
 │   ├── test-results/
 │   │   └── .last-run.json
 │   ├── .claudeignore
+│   ├── .env.development
+│   ├── .env.production
 │   ├── .gitattributes
 │   ├── .gitignore
 │   ├── .mise.toml
@@ -198,7 +212,6 @@ portal/
 │   ├── package-lock.json
 │   ├── package.json
 │   ├── playwright.config.ts
-│   ├── pnpm-lock.yaml
 │   ├── postcss.config.js
 │   ├── README.md
 │   ├── tailwind.config.js
@@ -234,6 +247,7 @@ portal/
 │   │   └── __init__.py
 │   ├── tests/
 │   │   ├── __init__.py
+│   │   ├── test_boot.py
 │   │   └── test_routing.py
 │   ├── www/
 │   │   ├── portal/

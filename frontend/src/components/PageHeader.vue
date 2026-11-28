@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getCustomer } from "@/services/mockApi";
+import { useProfile } from "@/data/useProfile";
 import AppIcon from "./AppIcon.vue";
+import UserAvatar from "./UserAvatar.vue";
 
 const route = useRoute();
 const router = useRouter();
-const customer = ref({ name: "", avatar: "" });
+const profile = useProfile();
 const deeper = computed(() => Boolean(route.meta.hideTabs));
 const isSupport = computed(() => route.path === "/portal/support");
-
-onMounted(async () => {
-  const data = await getCustomer();
-  customer.value = { name: data.name, avatar: data.avatar };
-});
 </script>
 
 <template>
@@ -32,8 +28,10 @@ onMounted(async () => {
         <AppIcon name="back" />
       </button>
       <div class="hidden min-w-56 items-center gap-3 md:flex">
-        <span class="grid size-10 place-items-center rounded-full bg-primary text-sm font-bold text-white">{{ customer.avatar }}</span>
-        <span class="text-sm font-bold text-primary">{{ customer.name }}</span>
+        <template v-if="profile.data">
+          <UserAvatar :avatar="profile.data.avatar" :image="profile.data.image" class="size-10 rounded-full text-sm" />
+          <span class="text-sm font-bold text-primary">{{ profile.data.name }}</span>
+        </template>
       </div>
       <div class="flex flex-1 items-center gap-2 md:justify-center">
         <button
